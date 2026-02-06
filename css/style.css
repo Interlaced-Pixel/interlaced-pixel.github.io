@@ -259,6 +259,46 @@ body {
     transform: translateX(3px);
 }
 
+/* ── Contact (form) ── */
+.contact-section {
+    padding: 48px 16px 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-panel {
+    width: 100%;
+    max-width: 720px;
+    background: rgba(255,255,255,0.86);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 28px;
+    box-shadow: var(--shadow);
+}
+
+.contact-panel h1 { font-size: 28px; margin-bottom: 8px; }
+.contact-panel .muted { color: var(--on-surface-secondary); margin-bottom: 18px; }
+
+#contact-form label { display: block; font-size: 13px; margin-bottom: 6px; color: var(--on-surface-secondary); }
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: var(--on-surface);
+}
+
+#contact-form textarea { resize: vertical; min-height: 120px; }
+
+.form-actions { display:flex; gap:12px; align-items:center; }
+
+#contact-status { font-size: 14px; color: var(--on-surface-secondary); }
+
 /* ── Footer ── */
 footer {
     border-top: 1px solid var(--border);

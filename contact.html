@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Contact — Interlaced Pixel</title>
+    <meta name="description" content="Contact Interlaced Pixel">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="topbar">
+        <a href="/" class="topbar-logo">
+            <div class="logo-dots">
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+            </div>
+            <span class="topbar-title">Interlaced Pixel</span>
+        </a>
+        <div class="topbar-nav">
+            <a href="/" class="topbar-link">Home</a>
+            <a href="#contact" class="topbar-link">Contact</a>
+            <a href="https://github.com/Interlaced-Pixel" class="topbar-btn" target="_blank" rel="noopener">
+                <span class="material-icons-outlined" style="font-size:18px;">open_in_new</span>
+                GitHub
+            </a>
+        </div>
+    </nav>
+
+    <main class="contact-section" id="contact">
+        <div class="contact-panel">
+            <h1>Contact Us</h1>
+            <p class="muted">Have a question, partnership, or bug report? Send us a message and we'll get back within a few days.</p>
+
+            <form id="contact-form" novalidate>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" required placeholder="Your name">
+
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+                <label for="subject">Subject</label>
+                <input id="subject" name="subject" type="text" required placeholder="Short subject">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Tell us about your question or feedback"></textarea>
+
+                <div class="form-actions">
+                    <button type="submit" class="topbar-btn">Send Message</button>
+                    <div id="contact-status" role="status" aria-live="polite"></div>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Interlaced Pixel</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

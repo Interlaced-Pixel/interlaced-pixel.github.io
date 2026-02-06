@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
 
     const BOLT_COLORS = ['#4A90D9', '#F5C542', '#E86B8A']; // blue, yellow, pink
+    function hexToRgba(hex, a = 1) {
+        const h = hex.replace('#','');
+        const r = parseInt(h.substring(0,2),16);
+        const g = parseInt(h.substring(2,4),16);
+        const b = parseInt(h.substring(4,6),16);
+        return `rgba(${r},${g},${b},${a})`;
+    }
+
     let width, height;
     let bolts = [];
     let flashAlpha = 0;
@@ -90,9 +98,105 @@ document.addEventListener('DOMContentLoaded', () => {
         noise.stop(now + duration);
     }
 
+    // ── Rain background (drops + splashes) ──
+    const DROP_COUNT = 180;
+    let drops = [];
+    let splashes = [];
+    let mouseX = 0, mouseY = 0;
+
+    function initDrops() {
+        drops = [];
+        splashes = [];
+        for (let i = 0; i < DROP_COUNT; i++) {
+            const baseHex = BOLT_COLORS[Math.floor(Math.random() * BOLT_COLORS.length)];
+            drops.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                length: 12 + Math.random() * 14,
+                vy: 4 + Math.random() * 6,
+                vx: (Math.random() - 0.5) * 0.8,
+                width: Math.random() * 0.6 + 0.8,
+                color: hexToRgba(baseHex, 0.18 + Math.random() * 0.18),
+                baseHex: baseHex,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+
+        mouseX = width / 2;
+        mouseY = height / 2;
+    }
+
+    // mouse-based subtle wind
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    window.addEventListener('mouseleave', () => {
+        mouseX = width / 2;
+        mouseY = height / 2;
+    });
+
+    function drawDrops(now) {
+        const t = now * 0.001; // seconds
+        const wind = (mouseX - width / 2) / width * 0.6; // -0.3..0.3
+
+        // Update & draw drops
+        for (let i = 0; i < drops.length; i++) {
+            const d = drops[i];
+
+            // gentle sway and wind
+            d.vx += Math.sin(t * 1.5 + d.phase) * 0.002;
+            d.x += d.vx + wind * 0.35;
+            d.y += d.vy;
+
+            // wrap horizontally
+            if (d.x < -20) d.x = width + 20;
+            if (d.x > width + 20) d.x = -20;
+
+            // hit ground -> splash and reset to top
+            if (d.y > height - 6) {
+                splashes.push({ x: d.x, y: height - 6, r: 0, maxR: 4 + d.length * 0.12, alpha: 0.9, colorHex: d.baseHex });
+                d.x = Math.random() * width;
+                d.y = -Math.random() * 120;
+                d.vy = 2 + Math.random() * 4;
+                d.vx = (Math.random() - 0.5) * 0.5;
+            }
+
+            // draw drop
+            ctx.save();
+            ctx.strokeStyle = d.color;
+            ctx.lineWidth = d.width;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y);
+            ctx.lineTo(d.x - (d.vx * 4), d.y - d.length);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Update & draw splashes
+        for (let i = splashes.length - 1; i >= 0; i--) {
+            const s = splashes[i];
+            s.r += 0.6;
+            s.alpha *= 0.92;
+            if (s.alpha < 0.02 || s.r > s.maxR) {
+                splashes.splice(i, 1);
+                continue;
+            }
+            ctx.save();
+            ctx.strokeStyle = hexToRgba(s.colorHex || '#4A90D9', 0.28 * s.alpha);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+    }
+
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
+        initDrops();
     }
     window.addEventListener('resize', resize);
     resize();
@@ -185,6 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate(now) {
         ctx.clearRect(0, 0, width, height);
 
+        // Draw rain (drops + splashes)
+        drawDrops(now);
+
         // Screen flash overlay
         if (flashAlpha > 0.001) {
             ctx.fillStyle = flashColor;
@@ -240,6 +347,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         requestAnimationFrame(animate);
+    }
+
+    // ── Contact form handling ──
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nameEl = document.getElementById('name');
+            const emailEl = document.getElementById('email');
+            const subjectEl = document.getElementById('subject');
+            const messageEl = document.getElementById('message');
+            const statusEl = document.getElementById('contact-status');
+
+            const name = nameEl.value.trim();
+            const email = emailEl.value.trim();
+            const subject = subjectEl.value.trim();
+            const message = messageEl.value.trim();
+
+            // Basic validation
+            if (!name || !email || !subject || !message) {
+                statusEl.textContent = 'Please fill in all fields.';
+                return;
+            }
+            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRe.test(email)) {
+                statusEl.textContent = 'Please enter a valid email address.';
+                return;
+            }
+
+            // Build mailto fallback
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+            const mailto = `mailto:hello@interlaced-pixel.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+            // Store a copy locally
+            try { localStorage.setItem('lastContact', JSON.stringify({ name, email, subject, message, time: Date.now() })); } catch (err) { /* ignore */ }
+
+            statusEl.textContent = 'Opening mail client — if nothing happens, copy the message below.';
+
+            // Try to open mail client
+            window.location.href = mailto;
+
+            // After a short delay show full message in status for copying
+            setTimeout(() => {
+                statusEl.textContent = 'If your mail client didn\'t open, copy this message and send it to hello@interlaced-pixel.com.';
+                // expose a small copy area
+                const copyArea = document.createElement('textarea');
+                copyArea.style.width = '100%';
+                copyArea.style.minHeight = '120px';
+                copyArea.textContent = `Subject: ${subject}\n\n${decodeURIComponent(body)}`;
+                statusEl.appendChild(document.createElement('br'));
+                statusEl.appendChild(copyArea);
+            }, 800);
+        });
     }
 
     requestAnimationFrame(animate);
