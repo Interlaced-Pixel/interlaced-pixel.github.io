@@ -5,10 +5,9 @@
 }
 
 :root {
-    --blue: #4285F4;
-    --red: #EA4335;
-    --yellow: #FBBC05;
-    --green: #34A853;
+    --blue: #4A90D9;
+    --yellow: #F5C542;
+    --pink: #E86B8A;
     --bg: #ffffff;
     --surface: #f8f9fa;
     --on-surface: #202124;
@@ -17,6 +16,17 @@
     --shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     --shadow-hover: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
     --radius: 8px;
+}
+
+/* ── Interactive Background ── */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
 }
 
 body {
@@ -36,7 +46,9 @@ body {
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: var(--bg);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     z-index: 100;
 }
 
@@ -60,9 +72,8 @@ body {
 }
 
 .logo-dot:nth-child(1) { background: var(--blue); }
-.logo-dot:nth-child(2) { background: var(--red); }
-.logo-dot:nth-child(3) { background: var(--yellow); }
-.logo-dot:nth-child(4) { background: var(--green); }
+.logo-dot:nth-child(2) { background: var(--yellow); }
+.logo-dot:nth-child(3) { background: var(--pink); }
 
 .topbar-title {
     font-family: 'Google Sans', sans-serif;
@@ -107,7 +118,7 @@ body {
 }
 
 .topbar-btn:hover {
-    background: #3367d6;
+    background: #3a7bc8;
     box-shadow: var(--shadow);
 }
 
@@ -128,7 +139,7 @@ body {
 }
 
 .hero h1 .word-1 { color: var(--blue); }
-.hero h1 .word-2 { color: var(--red); }
+.hero h1 .word-2 { color: var(--pink); }
 
 .hero p {
     font-size: 20px;
@@ -152,9 +163,8 @@ body {
 }
 
 .color-bar span:nth-child(1) { background: var(--blue); }
-.color-bar span:nth-child(2) { background: var(--red); }
-.color-bar span:nth-child(3) { background: var(--yellow); }
-.color-bar span:nth-child(4) { background: var(--green); }
+.color-bar span:nth-child(2) { background: var(--yellow); }
+.color-bar span:nth-child(3) { background: var(--pink); }
 
 /* ── Projects Grid ── */
 .section-title {
@@ -178,7 +188,9 @@ body {
 }
 
 .card {
-    background: var(--bg);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 32px 28px 28px;
@@ -205,8 +217,8 @@ body {
 }
 
 .card-icon.blue   { background: var(--blue); }
-.card-icon.red    { background: var(--red); }
-.card-icon.green  { background: var(--green); }
+.card-icon.yellow { background: var(--yellow); }
+.card-icon.pink   { background: var(--pink); }
 
 .card h2 {
     font-family: 'Google Sans', sans-serif;
@@ -235,7 +247,7 @@ body {
 }
 
 .card-link:hover {
-    color: #1a73e8;
+    color: var(--pink);
 }
 
 .card-link .material-icons-outlined {
@@ -254,6 +266,9 @@ footer {
     text-align: center;
     font-size: 13px;
     color: var(--on-surface-secondary);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 footer a {
