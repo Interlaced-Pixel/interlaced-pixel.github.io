@@ -57,6 +57,20 @@
                 </div>
             </form>
 
+            <div id="contact-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="contact-modal-title" aria-describedby="contact-modal-desc">
+                <div class="modal-overlay" tabindex="-1"></div>
+                <div class="modal-panel" role="document">
+                    <canvas class="puddle-canvas" aria-hidden="true"></canvas>
+                    <h2 id="contact-modal-title">Message Ready</h2>
+                    <p id="contact-modal-desc">Your message is prepared. If your mail client didn't open, copy and paste the message below and send it to <strong>hello@interlaced-pixel.com</strong>.</p>
+                    <textarea id="contact-copy" readonly></textarea>
+                    <div class="modal-actions">
+                        <button id="contact-copy-btn" class="topbar-btn">Copy</button>
+                        <button id="contact-modal-close" class="topbar-link">Close</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 

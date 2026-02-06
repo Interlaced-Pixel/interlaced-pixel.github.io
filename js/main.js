@@ -388,18 +388,168 @@ document.addEventListener('DOMContentLoaded', () => {
             // Try to open mail client
             window.location.href = mailto;
 
-            // After a short delay show full message in status for copying
-            setTimeout(() => {
-                statusEl.textContent = 'If your mail client didn\'t open, copy this message and send it to hello@interlaced-pixel.com.';
-                // expose a small copy area
-                const copyArea = document.createElement('textarea');
-                copyArea.style.width = '100%';
-                copyArea.style.minHeight = '120px';
-                copyArea.textContent = `Subject: ${subject}\n\n${decodeURIComponent(body)}`;
-                statusEl.appendChild(document.createElement('br'));
-                statusEl.appendChild(copyArea);
-            }, 800);
+            // Open success modal with copy area
+            openContactModal(subject, decodeURIComponent(body));
+            statusEl.textContent = 'Opening mail client — modal ready for copying if needed.';
         });
+    }
+
+    // ── Puddle ripples (per-card canvas) ──
+    const puddleCanvases = [];
+
+    function initPuddles() {
+        console.log('[puddles] initPuddles start');
+        puddleCanvases.length = 0;
+        const canvases = document.querySelectorAll('.puddle-canvas');
+        console.log('[puddles] found canvases:', canvases.length);
+
+        canvases.forEach((canvas, idx) => {
+            const container = canvas.parentElement;
+            if (!container) return;
+            const ctx = canvas.getContext('2d');
+            const obj = { container, canvas, ctx, ripples: [] };
+
+            function resizeCanvas() {
+                const dpr = window.devicePixelRatio || 1;
+                const w = Math.max(2, Math.floor(container.clientWidth));
+                const h = Math.max(2, Math.floor(container.clientHeight));
+                canvas.width = w * dpr;
+                canvas.height = h * dpr;
+                canvas.style.width = w + 'px';
+                canvas.style.height = h + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            resizeCanvas();
+
+            container.addEventListener('click', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const maxR = Math.max(rect.width, rect.height) * 0.85;
+
+                // derive color: for cards check .card-icon, for modal default
+                let hex = '#4A90D9';
+                const icon = container.querySelector('.card-icon');
+                if (icon) {
+                    if (icon.classList.contains('yellow')) hex = '#F5C542';
+                    if (icon.classList.contains('pink')) hex = '#E86B8A';
+                } else if (container.classList.contains('modal-panel')) {
+                    hex = '#4A90D9';
+                }
+
+                console.log(`[puddles] click on canvas ${idx} at`, x, y, 'color', hex);
+                obj.ripples.push({ x, y, r: 0, maxR, t: performance.now(), duration: 700 + Math.random() * 400, colorHex: hex });
+            });
+
+            const ro = new ResizeObserver(resizeCanvas);
+            ro.observe(container);
+
+            puddleCanvases.push(obj);
+        });
+
+        // quick test ripple on first canvas
+        if (puddleCanvases[0]) {
+            const c = puddleCanvases[0];
+            const rect = c.container.getBoundingClientRect();
+            const x = rect.width * 0.5;
+            const y = rect.height * 0.5;
+            c.ripples.push({ x, y, r: 0, maxR: Math.max(rect.width, rect.height) * 0.6, t: performance.now(), duration: 900, colorHex: '#4A90D9' });
+            console.log('[puddles] spawned test ripple on canvas 0');
+        }
+
+        console.log('[puddles] initPuddles done');
+    }
+
+    function drawPuddles(now) {
+        puddleCanvases.forEach(obj => {
+            const { canvas, ctx, ripples } = obj;
+            const w = canvas.width / (window.devicePixelRatio || 1);
+            const h = canvas.height / (window.devicePixelRatio || 1);
+            ctx.clearRect(0, 0, w, h);
+
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                const r = ripples[i];
+                const elapsed = now - r.t;
+                const progress = Math.min(1, elapsed / r.duration);
+                const radius = r.maxR * easeOutCubic(progress);
+                const alpha = 1 - progress;
+
+                // draw faint glow
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(r.x, r.y, radius * 0.9, 0, Math.PI * 2);
+                ctx.strokeStyle = hexToRgba(r.colorHex, alpha * 0.14);
+                ctx.lineWidth = 6 * (1 - progress) + 1;
+                ctx.stroke();
+                ctx.restore();
+
+                // draw core ripple ring
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(r.x, r.y, radius, 0, Math.PI * 2);
+                ctx.strokeStyle = hexToRgba(r.colorHex, alpha * 0.9);
+                ctx.lineWidth = 2.2 * (1 - progress) + 0.8;
+                ctx.globalCompositeOperation = 'lighter';
+                ctx.stroke();
+                ctx.restore();
+
+                if (progress >= 1) ripples.splice(i, 1);
+            }
+        });
+    }
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    // init puddles now and on resize
+    initPuddles();
+    window.addEventListener('resize', initPuddles);
+
+    // ── Modal helpers ──
+    const modalEl = document.getElementById('contact-modal');
+    const copyBtn = modalEl ? document.getElementById('contact-copy-btn') : null;
+    const closeBtn = modalEl ? document.getElementById('contact-modal-close') : null;
+    const copyArea = modalEl ? document.getElementById('contact-copy') : null;
+    let lastFocused = null;
+
+    function openContactModal(subject, fullMessage) {
+        if (!modalEl) return;
+        lastFocused = document.activeElement;
+        copyArea.value = `Subject: ${subject}\n\n${fullMessage}`;
+        modalEl.setAttribute('aria-hidden', 'false');
+        copyBtn.focus();
+        document.addEventListener('keydown', onModalKey);
+    }
+
+    function closeContactModal() {
+        if (!modalEl) return;
+        modalEl.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', onModalKey);
+        if (lastFocused) lastFocused.focus();
+    }
+
+    function onModalKey(e) {
+        if (e.key === 'Escape') {
+            closeContactModal();
+        }
+    }
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(copyArea.value);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1200);
+            } catch (err) {
+                // fallback: select contents to help user
+                copyArea.select();
+            }
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => closeContactModal());
+        modalEl.querySelector('.modal-overlay').addEventListener('click', () => closeContactModal());
     }
 
     requestAnimationFrame(animate);
