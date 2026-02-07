@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Meet http-c: High-Performance C++ Networking"
-date:   2026-02-07 03:00:00 -0600
+date:   2026-02-07 02:30:00 -0600
 author: "Jayian"
 categories: release
 ---
