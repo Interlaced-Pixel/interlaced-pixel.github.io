@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} — {% endif %}Interlaced Pixel</title>
+  <meta name="description" content="Interlaced Pixel — portable networking & developer efficiency tools">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Interlaced Pixel RSS" href="/rss.xml">
+</head>
+<body>
+  <nav class="topbar">
+    <a href="/" class="topbar-logo">
+      <div class="logo-dots">
+        <span class="logo-dot"></span>
+        <span class="logo-dot"></span>
+        <span class="logo-dot"></span>
+      </div>
+      <span class="topbar-title">Interlaced Pixel</span>
+    </a>
+    <div class="topbar-nav">
+      <a href="/" class="topbar-link">Home</a>
+      <a href="/blog/" class="topbar-link">Blog</a>
+      <a href="/contact.html" class="topbar-link">Contact</a>
+      <a href="https://github.com/Interlaced-Pixel" class="topbar-btn" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer>
+    <p>&copy; {{ new Date().getFullYear() }} Interlaced Pixel</p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
