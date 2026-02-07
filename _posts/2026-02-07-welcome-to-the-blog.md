@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Welcome to the New Blog"
-date:   2026-02-07 10:00:00 -0600
+date:   2026-02-07 01:00:00 -0600
 author: "Jayian"
 categories: updates
 ---
