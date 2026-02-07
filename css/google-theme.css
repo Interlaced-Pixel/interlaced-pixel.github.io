@@ -145,9 +145,54 @@ header.site-header {
   line-height: 1.6;
 }
 
+/* Breadcrumbs */
+.breadcrumbs {
+  font-size: 14px;
+  color: var(--google-text-secondary);
+  margin-bottom: 16px;
+}
+
+.breadcrumbs a {
+  color: var(--google-text-secondary);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+  color: var(--google-blue);
+}
+
 /* Post Styling */
 .post-header {
   margin-bottom: 32px;
+}
+
+/* Back to Top */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--google-blue);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 24px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, background-color 0.2s;
+  z-index: 1000;
+  opacity: 0.8;
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  background-color: #3367D6;
+  opacity: 1;
+  text-decoration: none;
 }
 
 .post-title {

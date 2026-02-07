@@ -4,11 +4,18 @@ layout: default
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
+    <nav class="breadcrumbs">
+      <a href="{{ "/" | prepend: site.baseurl }}">Home</a> &gt; 
+      <a href="{{ "/blog.html" | prepend: site.baseurl }}">Blog</a> &gt; 
+      <span>{{ page.title }}</span>
+    </nav>
+
     <div class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
         {{ page.date | date: "%B %-d, %Y" }}
       </time>
       {% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}
+      • <span>{% assign words = content | number_of_words %}{% if words < 200 %}1 min read{% else %}{{ words | divided_by: 200 }} min read{% endif %}</span>
     </div>
     <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
   </header>
