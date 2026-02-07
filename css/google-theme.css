@@ -56,6 +56,18 @@ header.site-header {
   z-index: 100;
 }
 
+/* Progress Bar */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+  z-index: 1001;
+  transition: width 0.1s ease-out;
+}
+
 /* Interactive Background */
 #bg-canvas {
   position: fixed;
@@ -185,7 +197,14 @@ header.site-header {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transition: transform 0.2s, background-color 0.2s;
   z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.2s, background-color 0.2s;
+}
+
+.back-to-top.visible {
   opacity: 0.8;
+  visibility: visible;
 }
 
 .back-to-top:hover {
@@ -242,6 +261,37 @@ header.site-header {
   overflow-x: auto;
   font-family: var(--font-family-monospace);
   font-size: 14px;
+}
+
+/* Code Copy Button */
+.code-wrapper {
+  position: relative;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--google-grey-300);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: var(--font-family-base);
+  color: var(--google-text-secondary);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.code-wrapper:hover .copy-code-btn {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  background-color: var(--google-blue);
+  color: #fff;
+  border-color: var(--google-blue);
 }
 
 /* Button */
