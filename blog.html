@@ -1,0 +1,29 @@
+---
+layout: default
+title: Blog
+permalink: /blog.html
+---
+
+<div class="home">
+
+  <h1 class="page-heading">Latest Posts</h1>
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <div class="post-card">
+          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <h2>
+            <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          </h2>
+          <div class="post-excerpt">
+            {{ post.excerpt }}
+          </div>
+          <br>
+          <a class="btn" href="{{ post.url | prepend: site.baseurl }}">Read More</a>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>

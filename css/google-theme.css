@@ -1,0 +1,219 @@
+/* Google Material Design Inspired Theme */
+
+:root {
+  /* Google Brand Colors */
+  --google-blue: #4285F4;
+  --google-red: #EA4335;
+  --google-yellow: #FBBC05;
+  --google-green: #34A853;
+  --google-grey-100: #F1F3F4;
+  --google-grey-300: #DADCE0;
+  --google-grey-800: #202124;
+  --google-text: #202124;
+  --google-text-secondary: #5F6368;
+
+  /* Typography */
+  --font-family-base: 'Google Sans', 'Roboto', Arial, sans-serif;
+  --font-family-monospace: 'Roboto Mono', monospace;
+  
+  /* Spacing */
+  --spacing-unit: 16px;
+  --border-radius: 8px;
+  --box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+  --box-shadow-hover: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+}
+
+body {
+  font-family: var(--font-family-base);
+  color: var(--google-text);
+  background-color: #fff;
+  margin: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--google-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header / App Bar */
+header.site-header {
+  background-color: #fff;
+  border-bottom: 1px solid var(--google-grey-300);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--google-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-nav a {
+  color: var(--google-text-secondary);
+  margin-left: 20px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.site-nav a:hover {
+  color: var(--google-text);
+  text-decoration: none;
+}
+
+/* Main Content */
+.page-content {
+  padding: 40px 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Cards */
+.post-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 24px;
+}
+
+.post-card {
+  background: #fff;
+  border: 1px solid var(--google-grey-300);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.post-card:hover {
+  box-shadow: var(--box-shadow-hover);
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+.post-meta {
+  font-size: 12px;
+  color: var(--google-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.post-link {
+  font-size: 22px;
+  color: var(--google-text);
+  font-weight: 400;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.post-link:hover {
+  color: var(--google-blue);
+  text-decoration: none;
+}
+
+.post-excerpt {
+  color: var(--google-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Post Styling */
+.post-header {
+  margin-bottom: 32px;
+}
+
+.post-title {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: var(--google-text);
+}
+
+.post-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #3c4043; /* Slightly softer black for reading */
+}
+
+.post-content h2 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  color: var(--google-text);
+}
+
+.post-content p {
+  margin-bottom: 24px;
+}
+
+.post-content img {
+  max-width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin: 24px 0;
+}
+
+.post-content code {
+  font-family: var(--font-family-monospace);
+  background-color: var(--google-grey-100);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.post-content pre {
+  background-color: var(--google-grey-100);
+  padding: 16px;
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+  font-family: var(--font-family-monospace);
+  font-size: 14px;
+}
+
+/* Button */
+.btn {
+  display: inline-block;
+  padding: 10px 24px;
+  background-color: var(--google-blue);
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn:hover {
+  background-color: #3367D6; /* Darker blue */
+  text-decoration: none;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+}
+
+/* Google Logo Colors Helper */
+.g-blue { color: var(--google-blue); }
+.g-red { color: var(--google-red); }
+.g-yellow { color: var(--google-yellow); }
+.g-green { color: var(--google-green); }
+
+footer.site-footer {
+  border-top: 1px solid var(--google-grey-300);
+  padding: 32px 24px;
+  margin-top: 64px;
+  text-align: center;
+  color: var(--google-text-secondary);
+  font-size: 14px;
+}
