@@ -14,6 +14,8 @@
 </head>
 <body>
 
+  <canvas id="bg-canvas"></canvas>
+
   <header class="site-header">
     <a class="site-title" href="{{ "/" | prepend: site.baseurl }}">
       <span class="g-blue">Interlaced</span><span class="g-red">Pixel</span>
@@ -34,6 +36,8 @@
       <p>&copy; {{ site.time | date: '%Y' }} Interlaced Pixel. All rights reserved.</p>
     </div>
   </footer>
+
+  <script src="{{ "/js/main.js" | prepend: site.baseurl }}"></script>
 
 </body>
 </html>
