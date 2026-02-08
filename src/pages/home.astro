@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Interlaced Pixel | Developer Tools">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Building the Future of <br><span class="word-1">Developer</span> <span
+                    class="word-2">Performance</span>
+            </h1>
+            <p>Supercharge your workflow with our lightning-fast, portable networking tools and VS Code extensions.
+                Open source and built for efficiency.</p>
+            <div class="hero-actions">
+                <a href="/projects" class="pid-btn pid-btn-primary magnetic-btn">Explore Projects</a>
+                <a href="https://github.com/Interlaced-Pixel" class="pid-btn pid-btn-secondary magnetic-btn"
+                    target="_blank" rel="noopener">
+                    <span class="material-icons-outlined">code</span> View on GitHub
+                </a>
+            </div>
+        </div>
+        <div class="color-bar">
+            <span></span><span></span><span></span>
+        </div>
+    </section>
+
+    <!-- Featured Project -->
+    <section id="projects" class="section-padding">
+        <div class="container">
+            <p class="section-title">Featured Project</p>
+            
+            <div class="projects featured-projects-layout">
+                <article class="project-hero-card tilt-card spotlight-card">
+                    <canvas class="puddle-canvas" aria-hidden="true"></canvas>
+                    <div class="project-hero-content">
+                        <div class="card-icon blue">
+                            <span class="material-icons-outlined">dns</span>
+                        </div>
+                        <h2>socks-proxy <span class="badge-new">NEW</span></h2>
+                        <p>A portable, "slap it in place and forget it" SOCKS5 proxy server for Linux, Windows, and Mac. Zero dependencies, single binary.</p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">Networking</span>
+                            <span class="tech-tag">Cross-platform</span>
+                        </div>
+
+                        <div class="project-stats project-stats-pure">
+                            <div class="stat-item" title="License">
+                            </div>
+                        </div>
+
+                        <div class="card-actions">
+                            <a href="https://github.com/Interlaced-Pixel/socks-proxy" target="_blank" rel="noopener"
+                                class="pid-btn pid-btn-primary">
+                                View Source <span class="material-icons-outlined">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-hero-visual">
+                        <div class="code-preview">
+                            <div class="code-line c-keywords">int main(int argc, char *argv[]) &#123;</div>
+                            <div class="code-line indent-1 c-func">setup_socket_server();</div>
+                            <div class="code-line indent-1 c-control">while (running) &#123;</div>
+                            <div class="code-line indent-2 c-func">accept_connection();</div>
+                            <div class="code-line indent-2 c-type">spawn_thread(handle_client);</div>
+                            <div class="code-line indent-1">&#125;</div>
+                            <div class="code-line c-control">return 0;</div>
+                            <div class="code-line">&#125;</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="text-center view-all-container">
+                <a href="/projects" class="pid-btn pid-btn-secondary">
+                    View All Projects <span class="material-icons-outlined">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section-padding">
+        <div class="container">
+            <p class="section-title">Why Choose Interlaced Pixel?</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon blue-bg">
+                        <span class="material-icons-outlined">bolt</span>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized for speed and low latency. Our tools are written in C/C++ to ensure maximum
+                        performance on any machine.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon yellow-bg">
+                        <span class="material-icons-outlined">integration_instructions</span>
+                    </div>
+                    <h3>Developer First</h3>
+                    <p>Built by developers, for developers. Simple APIs, clean documentation, and tools that just
+                        work out of the box.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon pink-bg">
+                        <span class="material-icons-outlined">public</span>
+                    </div>
+                    <h3>Open Source</h3>
+                    <p>Fully open source and community-driven. Inspect the code, contribute, and use it freely in
+                        your projects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple-bg">
+                        <span class="material-icons-outlined">devices</span>
+                    </div>
+                    <h3>Cross Platform</h3>
+                    <p>Run anywhere. Our tools support Windows, macOS, and Linux seamlessly with zero configuration.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Trust / Community Section -->
+    <section class="trust section-padding">
+        <div class="container text-center">
+            <div class="trust-content">
+                <h2>Trusted by Developers Worldwide</h2>
+                <p class="trust-description">
+                    Join a growing community of developers building faster, more efficient software with our
+                    open-source tools.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section section-padding">
+        <div class="container text-center">
+            <div class="cta-box">
+                <h2>Ready to Optimize Your Workflow?</h2>
+                <p>Join the community and start using our high-performance tools today.</p>
+                <div class="cta-actions">
+                    <a href="https://github.com/Interlaced-Pixel" class="pid-btn pid-btn-primary" target="_blank"
+                        rel="noopener">Get Started on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

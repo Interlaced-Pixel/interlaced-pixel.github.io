@@ -1,152 +1,900 @@
 ---
-import Layout from '../layouts/Layout.astro';
+// Interactive Galaxy Homepage - Projects as Planets
 ---
 
-<Layout title="Interlaced Pixel | Developer Tools">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Building the Future of <br><span class="word-1">Developer</span> <span
-                    class="word-2">Performance</span>
-            </h1>
-            <p>Supercharge your workflow with our lightning-fast, portable networking tools and VS Code extensions.
-                Open source and built for efficiency.</p>
-            <div class="hero-actions">
-                <a href="/projects" class="pid-btn pid-btn-primary magnetic-btn">Explore Projects</a>
-                <a href="https://github.com/Interlaced-Pixel" class="pid-btn pid-btn-secondary magnetic-btn"
-                    target="_blank" rel="noopener">
-                    <span class="material-icons-outlined">code</span> View on GitHub
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interlaced Pixel — Open Source Tools</title>
+    <meta name="description" content="Explore our universe of open source tools. High-performance, portable software for developers.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        
+        body {
+            background: #000;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+        
+        canvas { display: block; cursor: default; }
+        
+        /* Galaxy Center Label */
+        .center-label {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .center-label.visible {
+            opacity: 1;
+        }
+        
+        .center-label span {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        
+        .center-label strong {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 1px;
+        }
+        
+        /* Planet Tooltip */
+        .planet-tooltip {
+            position: fixed;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+        
+        .planet-tooltip.visible {
+            opacity: 1;
+        }
+        
+        /* Project Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: linear-gradient(135deg, rgba(20,20,30,0.95), rgba(10,10,20,0.98));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+        
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+        
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-icon.earth { background: linear-gradient(135deg, #4a9eff, #00d4aa); }
+        .modal-icon.saturn { background: linear-gradient(135deg, #ffa500, #ff6b35); }
+        .modal-icon.mars { background: linear-gradient(135deg, #ff6b6b, #a855f7); }
+        
+        .modal h2 {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .modal .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(0, 200, 150, 0.2);
+            color: #00d4aa;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 8px;
+        }
+        
+        .modal p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        
+        .modal .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .modal .tech-tag {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .modal .actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .modal .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modal .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+        }
+        
+        .modal .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .modal .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+        }
+        
+        .modal .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        /* Site Title */
+        .site-title {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            text-align: center;
+        }
+        
+        .site-title h1 {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+        }
+        
+        .site-title p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 4px;
+            letter-spacing: 2px;
+        }
+        
+        /* Instructions */
+        .instructions {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 50;
+        }
+        
+        .instructions p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 1px;
+        }
+        
+        /* Nav Links */
+        .nav-links {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 20px;
+            z-index: 50;
+        }
+        
+        .nav-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div class="site-title">
+        <h1>Interlaced Pixel</h1>
+        <p>Open Source Tools</p>
+    </div>
+    
+    <nav class="nav-links">
+        <a href="/home">Home</a>
+        <a href="/projects">Projects</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    
+    <div class="center-label" id="centerLabel">
+        <span>Enter</span>
+        <strong>Home</strong>
+    </div>
+    
+    <div class="planet-tooltip" id="tooltip"></div>
+    
+    <div class="instructions">
+        <p>Click a planet to view project • Click the galaxy center to enter</p>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-icon" id="modalIcon">🚀</div>
+            <h2 id="modalTitle">Project Name</h2>
+            <p id="modalDesc">Description</p>
+            <div class="tech-stack" id="modalTech"></div>
+            <div class="actions">
+                <a href="#" class="btn btn-primary" id="modalLink" target="_blank">
+                    View Project →
                 </a>
+                <button class="btn btn-secondary" onclick="closeModal()">Close</button>
             </div>
         </div>
-        <div class="color-bar">
-            <span></span><span></span><span></span>
-        </div>
-    </section>
+    </div>
 
-    <!-- Featured Project -->
-    <section id="projects" class="section-padding">
-        <div class="container">
-            <p class="section-title">Featured Project</p>
+    <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, cx, cy;
+    let time = 0;
+    let mouse = { x: 0, y: 0 };
+    let hoveredPlanet = null;
+    let hoveredCenter = false;
+
+    // Project Data
+    const projects = [
+        {
+            id: 'socks-proxy',
+            name: 'socks-proxy',
+            badge: 'NEW',
+            description: 'A portable, "slap it in place and forget it" SOCKS5 proxy server. Zero dependencies, single binary, highly performant.',
+            tech: ['C', 'Networking', 'Multi-threaded'],
+            link: 'https://github.com/Interlaced-Pixel/socks-proxy',
+            linkText: 'View Source',
+            icon: '🌐',
+            iconClass: 'earth'
+        },
+        {
+            id: 'coverage-status',
+            name: 'coverage-status',
+            badge: null,
+            description: 'VS Code extension that reads lcov files to display code coverage percentage directly in your status bar. Seamless integration.',
+            tech: ['TypeScript', 'VS Code API'],
+            link: 'https://marketplace.visualstudio.com/items?itemName=InterlacedPixel.code-coverage-status',
+            linkText: 'View Extension',
+            icon: '📊',
+            iconClass: 'saturn'
+        },
+        {
+            id: 'http-c',
+            name: 'http-c',
+            badge: 'ALPHA',
+            description: 'Efficient C++ HTTP library for high-performance networking tasks. Designed for modern C++ standards.',
+            tech: ['C++17', 'Networking', 'HTTP/1.1'],
+            link: 'https://github.com/Interlaced-Pixel/http-c',
+            linkText: 'View Source',
+            icon: '⚡',
+            iconClass: 'mars'
+        }
+    ];
+
+    function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        cx = W / 2;
+        cy = H / 2;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // ════════════════════════════════════════════════════════════════
+    // DISTANT STARS
+    // ════════════════════════════════════════════════════════════════
+    
+    const distantStars = [];
+    for (let i = 0; i < 300; i++) {
+        distantStars.push({
+            x: Math.random() * 2 - 1,
+            y: Math.random() * 2 - 1,
+            z: Math.random(),
+            size: Math.random() * 1.5,
+            twinkle: Math.random() * Math.PI * 2
+        });
+    }
+
+    function drawDistantStars() {
+        distantStars.forEach(star => {
+            star.twinkle += 0.015;
+            const brightness = Math.abs(0.5 + Math.sin(star.twinkle) * 0.3);
+            const parallax = 0.015 * star.z;
+            const sx = cx + star.x * W * 0.55 + (mouse.x - cx) * parallax;
+            const sy = cy + star.y * H * 0.55 + (mouse.y - cy) * parallax;
             
-            <div class="projects featured-projects-layout">
-                <article class="project-hero-card tilt-card spotlight-card">
-                    <canvas class="puddle-canvas" aria-hidden="true"></canvas>
-                    <div class="project-hero-content">
-                        <div class="card-icon blue">
-                            <span class="material-icons-outlined">dns</span>
-                        </div>
-                        <h2>socks-proxy <span class="badge-new">NEW</span></h2>
-                        <p>A portable, "slap it in place and forget it" SOCKS5 proxy server for Linux, Windows, and Mac. Zero dependencies, single binary.</p>
-                        
-                        <div class="tech-stack">
-                            <span class="tech-tag">C</span>
-                            <span class="tech-tag">Networking</span>
-                            <span class="tech-tag">Cross-platform</span>
-                        </div>
+            ctx.beginPath();
+            ctx.arc(sx, sy, star.size * brightness, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(180, 200, 255, ${brightness * 0.5})`;
+            ctx.fill();
+        });
+    }
 
-                        <div class="project-stats project-stats-pure">
-                            <div class="stat-item" title="License">
-                            </div>
-                        </div>
+    // ════════════════════════════════════════════════════════════════
+    // MILKY WAY GALAXY
+    // ════════════════════════════════════════════════════════════════
+    
+    const galaxyStars = [];
+    const numArms = 4;
+    const starsPerArm = 600;
 
-                        <div class="card-actions">
-                            <a href="https://github.com/Interlaced-Pixel/socks-proxy" target="_blank" rel="noopener"
-                                class="pid-btn pid-btn-primary">
-                                View Source <span class="material-icons-outlined">arrow_forward</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="project-hero-visual">
-                        <div class="code-preview">
-                            <div class="code-line c-keywords">int main(int argc, char *argv[]) &#123;</div>
-                            <div class="code-line indent-1 c-func">setup_socket_server();</div>
-                            <div class="code-line indent-1 c-control">while (running) &#123;</div>
-                            <div class="code-line indent-2 c-func">accept_connection();</div>
-                            <div class="code-line indent-2 c-type">spawn_thread(handle_client);</div>
-                            <div class="code-line indent-1">&#125;</div>
-                            <div class="code-line c-control">return 0;</div>
-                            <div class="code-line">&#125;</div>
-                        </div>
-                    </div>
-                </article>
-            </div>
+    for (let arm = 0; arm < numArms; arm++) {
+        const armAngle = (arm / numArms) * Math.PI * 2;
+        for (let i = 0; i < starsPerArm; i++) {
+            const t = i / starsPerArm;
+            const distance = t * 0.38 + 0.03;
+            const spiralAngle = armAngle + t * Math.PI * 2.5;
+            const spread = (Math.random() - 0.5) * 0.35 * (1 - t * 0.4);
             
-            <div class="text-center view-all-container">
-                <a href="/projects" class="pid-btn pid-btn-secondary">
-                    View All Projects <span class="material-icons-outlined">arrow_forward</span>
-                </a>
-            </div>
-        </div>
-    </section>
+            galaxyStars.push({
+                baseAngle: spiralAngle + (Math.random() - 0.5) * 0.4,
+                distance: distance + spread * 0.08,
+                size: 0.4 + Math.random() * 1.2 * (1 - t * 0.4),
+                brightness: 0.4 + Math.random() * 0.6 * (1 - t * 0.2),
+                hue: 210 + Math.random() * 30 + t * 20,
+                orbitSpeed: 0.00015 + Math.random() * 0.0001
+            });
+        }
+    }
 
-    <!-- Features Section -->
-    <section class="features section-padding">
-        <div class="container">
-            <p class="section-title">Why Choose Interlaced Pixel?</p>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon blue-bg">
-                        <span class="material-icons-outlined">bolt</span>
-                    </div>
-                    <h3>Lightning Fast</h3>
-                    <p>Optimized for speed and low latency. Our tools are written in C/C++ to ensure maximum
-                        performance on any machine.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon yellow-bg">
-                        <span class="material-icons-outlined">integration_instructions</span>
-                    </div>
-                    <h3>Developer First</h3>
-                    <p>Built by developers, for developers. Simple APIs, clean documentation, and tools that just
-                        work out of the box.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon pink-bg">
-                        <span class="material-icons-outlined">public</span>
-                    </div>
-                    <h3>Open Source</h3>
-                    <p>Fully open source and community-driven. Inspect the code, contribute, and use it freely in
-                        your projects.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon purple-bg">
-                        <span class="material-icons-outlined">devices</span>
-                    </div>
-                    <h3>Cross Platform</h3>
-                    <p>Run anywhere. Our tools support Windows, macOS, and Linux seamlessly with zero configuration.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+    // Dense core
+    for (let i = 0; i < 250; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.pow(Math.random(), 1.5) * 0.07;
+        galaxyStars.push({
+            baseAngle: angle,
+            distance: dist,
+            size: 0.5 + Math.random() * 1.5,
+            brightness: 0.6 + Math.random() * 0.4,
+            hue: 35 + Math.random() * 20,
+            orbitSpeed: 0.0008 + Math.random() * 0.0005
+        });
+    }
 
+    function drawGalaxy() {
+        const tilt = 0.28;
+        const rotation = time * 0.00008;
+        const scale = Math.min(W, H) * 1.1;
+        
+        galaxyStars.forEach(star => {
+            star.baseAngle += star.orbitSpeed;
+            const x = Math.cos(star.baseAngle + rotation) * star.distance;
+            const y = Math.sin(star.baseAngle + rotation) * star.distance * tilt;
+            const screenX = cx + x * scale;
+            const screenY = cy + y * scale;
+            
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, star.size, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${star.hue}, 50%, ${45 + star.brightness * 35}%, ${star.brightness * 0.7})`;
+            ctx.fill();
+        });
+        
+        // Core glow
+        for (let i = 2; i >= 0; i--) {
+            const r = 25 + i * 30;
+            const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+            grad.addColorStop(0, `hsla(40, 100%, 75%, ${0.12 - i * 0.03})`);
+            grad.addColorStop(0.6, `hsla(30, 100%, 55%, ${0.06 - i * 0.015})`);
+            grad.addColorStop(1, 'transparent');
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.fill();
+        }
+    }
 
+    // ════════════════════════════════════════════════════════════════
+    // PLANET DEFINITIONS (Realistic Style)
+    // ════════════════════════════════════════════════════════════════
+    
+    const planets = [
+        {
+            projectId: 'socks-proxy',
+            name: 'socks-proxy',
+            orbitRadius: 0.48,
+            size: 22,
+            angle: 0,
+            orbitSpeed: 0.0005,
+            // Earth-like
+            colors: ['#4a9eff', '#2e8b57', '#3d7a3d', '#1e5a3e'],
+            hasAtmosphere: true,
+            atmosphereColor: 'rgba(100, 180, 255, 0.15)',
+            moons: [{ radius: 32, size: 4, speed: 0.004, angle: 0 }]
+        },
+        {
+            projectId: 'coverage-status',
+            name: 'coverage-status',
+            orbitRadius: 0.38,
+            size: 28,
+            angle: Math.PI * 0.6,
+            orbitSpeed: 0.0007,
+            // Saturn-like
+            colors: ['#e8a954', '#d4894a', '#c17a42', '#a86832'],
+            hasRings: true,
+            ringColor: 'rgba(210, 180, 140, 0.35)',
+            moons: [
+                { radius: 50, size: 5, speed: 0.003, angle: 0 },
+                { radius: 65, size: 3, speed: 0.002, angle: 2 }
+            ]
+        },
+        {
+            projectId: 'http-c',
+            name: 'http-c',
+            orbitRadius: 0.28,
+            size: 16,
+            angle: Math.PI * 1.3,
+            orbitSpeed: 0.001,
+            // Mars-like
+            colors: ['#cd5c5c', '#b84c4c', '#a33c3c', '#8b2e2e'],
+            moons: []
+        }
+    ];
 
-    <!-- Trust / Community Section -->
-    <section class="trust section-padding">
-        <div class="container text-center">
-            <div class="trust-content">
-                <h2>Trusted by Developers Worldwide</h2>
-                <p class="trust-description">
-                    Join a growing community of developers building faster, more efficient software with our
-                    open-source tools.
-                </p>
-            </div>
-        </div>
-    </section>
+    function drawPlanets() {
+        const tilt = 0.28;
+        const scale = Math.min(W, H) * 1.1;
+        
+        planets.forEach(planet => {
+            planet.angle += planet.orbitSpeed;
+            
+            const orbitX = Math.cos(planet.angle) * planet.orbitRadius;
+            const orbitY = Math.sin(planet.angle) * planet.orbitRadius * tilt;
+            const screenX = cx + orbitX * scale;
+            const screenY = cy + orbitY * scale;
+            
+            // Store screen position for hit detection
+            planet.screenX = screenX;
+            planet.screenY = screenY;
+            
+            // Orbit path
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, planet.orbitRadius * scale, planet.orbitRadius * scale * tilt, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255,255,255,0.02)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            // Rings (Saturn)
+            if (planet.hasRings) {
+                ctx.save();
+                ctx.translate(screenX, screenY);
+                ctx.rotate(0.25);
+                ctx.scale(1, 0.25);
+                
+                // Ring bands
+                for (let r = 0; r < 3; r++) {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, planet.size * 1.6 + r * 6, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(210, 180, 140, ${0.25 - r * 0.06})`;
+                    ctx.lineWidth = 4 - r;
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+            
+            // Atmosphere glow
+            if (planet.hasAtmosphere) {
+                const atmosGrad = ctx.createRadialGradient(screenX, screenY, planet.size * 0.8, screenX, screenY, planet.size * 1.4);
+                atmosGrad.addColorStop(0, 'transparent');
+                atmosGrad.addColorStop(0.5, planet.atmosphereColor);
+                atmosGrad.addColorStop(1, 'transparent');
+                ctx.beginPath();
+                ctx.arc(screenX, screenY, planet.size * 1.4, 0, Math.PI * 2);
+                ctx.fillStyle = atmosGrad;
+                ctx.fill();
+            }
+            
+            // Hover glow
+            if (hoveredPlanet === planet) {
+                ctx.beginPath();
+                ctx.arc(screenX, screenY, planet.size + 10, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                ctx.fill();
+            }
+            
+            // Planet body with gradient
+            const planetGrad = ctx.createRadialGradient(
+                screenX - planet.size * 0.35, screenY - planet.size * 0.35, 0,
+                screenX, screenY, planet.size
+            );
+            planetGrad.addColorStop(0, planet.colors[0]);
+            planetGrad.addColorStop(0.4, planet.colors[1]);
+            planetGrad.addColorStop(0.7, planet.colors[2]);
+            planetGrad.addColorStop(1, planet.colors[3]);
+            
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, planet.size, 0, Math.PI * 2);
+            ctx.fillStyle = planetGrad;
+            ctx.fill();
+            
+            // Surface detail shadow
+            ctx.beginPath();
+            ctx.arc(screenX + planet.size * 0.2, screenY + planet.size * 0.1, planet.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.globalCompositeOperation = 'source-atop';
+            ctx.fill();
+            ctx.globalCompositeOperation = 'source-over';
+            
+            // Moons
+            planet.moons.forEach(moon => {
+                moon.angle += moon.speed;
+                const moonX = screenX + Math.cos(moon.angle) * moon.radius;
+                const moonY = screenY + Math.sin(moon.angle) * moon.radius * 0.35;
+                
+                ctx.beginPath();
+                ctx.arc(moonX, moonY, moon.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(200, 200, 210, 0.9)';
+                ctx.fill();
+            });
+        });
+    }
 
-    <!-- Final CTA -->
-    <section class="cta-section section-padding">
-        <div class="container text-center">
-            <div class="cta-box">
-                <h2>Ready to Optimize Your Workflow?</h2>
-                <p>Join the community and start using our high-performance tools today.</p>
-                <div class="cta-actions">
-                    <a href="https://github.com/Interlaced-Pixel" class="pid-btn pid-btn-primary" target="_blank"
-                        rel="noopener">Get Started on GitHub</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</Layout>
+    // ════════════════════════════════════════════════════════════════
+    // SHOOTING STARS
+    // ════════════════════════════════════════════════════════════════
+    
+    const shootingStars = [];
+    
+    function updateShootingStars() {
+        if (Math.random() < 0.003 && shootingStars.length < 2) {
+            shootingStars.push({
+                x: Math.random() * W * 0.8,
+                y: Math.random() * H * 0.3,
+                vx: 6 + Math.random() * 4,
+                vy: 2 + Math.random() * 2,
+                life: 1,
+                length: 60 + Math.random() * 80
+            });
+        }
+        
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+            const s = shootingStars[i];
+            s.x += s.vx;
+            s.y += s.vy;
+            s.life -= 0.02;
+            
+            if (s.life <= 0 || s.x > W || s.y > H) {
+                shootingStars.splice(i, 1);
+                continue;
+            }
+            
+            const grad = ctx.createLinearGradient(s.x, s.y, s.x - s.vx * s.length / 8, s.y - s.vy * s.length / 8);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${s.life})`);
+            grad.addColorStop(1, 'transparent');
+            
+            ctx.beginPath();
+            ctx.moveTo(s.x, s.y);
+            ctx.lineTo(s.x - s.vx * s.length / 8, s.y - s.vy * s.length / 8);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // HIT DETECTION & INTERACTION
+    // ════════════════════════════════════════════════════════════════
+    
+    function checkHover() {
+        const tooltip = document.getElementById('tooltip');
+        const centerLabel = document.getElementById('centerLabel');
+        
+        // Check planets
+        hoveredPlanet = null;
+        for (const planet of planets) {
+            const dx = mouse.x - planet.screenX;
+            const dy = mouse.y - planet.screenY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < planet.size + 10) {
+                hoveredPlanet = planet;
+                canvas.style.cursor = 'pointer';
+                tooltip.textContent = planet.name;
+                tooltip.style.left = (planet.screenX + planet.size + 15) + 'px';
+                tooltip.style.top = (planet.screenY - 15) + 'px';
+                tooltip.classList.add('visible');
+                break;
+            }
+        }
+        
+        if (!hoveredPlanet) {
+            tooltip.classList.remove('visible');
+        }
+        
+        // Check galaxy center
+        const centerDist = Math.sqrt((mouse.x - cx) ** 2 + (mouse.y - cy) ** 2);
+        hoveredCenter = centerDist < 50;
+        
+        if (hoveredCenter) {
+            canvas.style.cursor = 'pointer';
+            centerLabel.classList.add('visible');
+        } else {
+            centerLabel.classList.remove('visible');
+        }
+        
+        if (!hoveredPlanet && !hoveredCenter) {
+            canvas.style.cursor = 'default';
+        }
+    }
+
+    function handleClick(e) {
+        if (isZooming) return; // Prevent clicks during zoom
+        
+        const clickX = e.clientX;
+        const clickY = e.clientY;
+        
+        // Check galaxy center first (higher priority)
+        const centerDist = Math.sqrt((clickX - cx) ** 2 + (clickY - cy) ** 2);
+        if (centerDist < 50) {
+            startZoom(cx, cy, '/home');
+            return;
+        }
+        
+        // Check planets
+        for (const planet of planets) {
+            const dx = clickX - planet.screenX;
+            const dy = clickY - planet.screenY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < planet.size + 10) {
+                const project = projects.find(p => p.id === planet.projectId);
+                if (project) {
+                    startZoom(planet.screenX, planet.screenY, null, project);
+                }
+                return;
+            }
+        }
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // ZOOM TRANSITION
+    // ════════════════════════════════════════════════════════════════
+    
+    let isZooming = false;
+    let zoomProgress = 0;
+    let zoomTarget = { x: 0, y: 0 };
+    let zoomScale = 1;
+    let zoomDestination = null;
+    let zoomProject = null;
+    let zoomStartTime = 0;
+    const ZOOM_DURATION = 1200; // ms
+    
+    function startZoom(targetX, targetY, destination, project = null) {
+        isZooming = true;
+        zoomProgress = 0;
+        zoomTarget = { x: targetX, y: targetY };
+        zoomScale = 1;
+        zoomDestination = destination;
+        zoomProject = project;
+        zoomStartTime = performance.now();
+        
+        // Hide tooltip and center label during zoom
+        tooltip.classList.remove('visible');
+        centerLabel.classList.remove('visible');
+    }
+    
+    function updateZoom() {
+        if (!isZooming) return false;
+        
+        const elapsed = performance.now() - zoomStartTime;
+        zoomProgress = Math.min(elapsed / ZOOM_DURATION, 1);
+        
+        // Easing function for smooth acceleration
+        const eased = 1 - Math.pow(1 - zoomProgress, 3);
+        
+        // Scale from 1 to 8 (zoom in 8x)
+        zoomScale = 1 + eased * 7;
+        
+        // Add fade out effect near the end
+        if (zoomProgress > 0.7) {
+            const fadeProgress = (zoomProgress - 0.7) / 0.3;
+            canvas.style.opacity = 1 - fadeProgress;
+        }
+        
+        if (zoomProgress >= 1) {
+            // Zoom complete
+            isZooming = false;
+            canvas.style.opacity = 1;
+            zoomScale = 1;
+            
+            if (zoomDestination) {
+                window.location.href = zoomDestination;
+            } else if (zoomProject) {
+                showModal(zoomProject);
+            }
+        }
+        
+        return true;
+    }
+    
+    function applyZoomTransform() {
+        if (!isZooming) return;
+        
+        ctx.save();
+        
+        // Translate to zoom target, scale, then translate back
+        ctx.translate(zoomTarget.x, zoomTarget.y);
+        ctx.scale(zoomScale, zoomScale);
+        ctx.translate(-zoomTarget.x, -zoomTarget.y);
+    }
+    
+    function restoreZoomTransform() {
+        if (!isZooming) return;
+        ctx.restore();
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // MODAL
+    // ════════════════════════════════════════════════════════════════
+    
+    function showModal(project) {
+        const overlay = document.getElementById('modalOverlay');
+        document.getElementById('modalIcon').textContent = project.icon;
+        document.getElementById('modalIcon').className = 'modal-icon ' + project.iconClass;
+        
+        let titleHTML = project.name;
+        if (project.badge) {
+            titleHTML += `<span class="badge">${project.badge}</span>`;
+        }
+        document.getElementById('modalTitle').innerHTML = titleHTML;
+        document.getElementById('modalDesc').textContent = project.description;
+        
+        const techContainer = document.getElementById('modalTech');
+        techContainer.innerHTML = project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+        
+        const link = document.getElementById('modalLink');
+        link.href = project.link;
+        link.textContent = project.linkText + ' →';
+        
+        overlay.classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+    }
+
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'modalOverlay') closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // ════════════════════════════════════════════════════════════════
+    // ANIMATION LOOP
+    // ════════════════════════════════════════════════════════════════
+    
+    function animate() {
+        time++;
+        
+        // Update zoom animation
+        updateZoom();
+        
+        // Clear with fade effect
+        ctx.fillStyle = 'rgba(0, 0, 5, 0.12)';
+        ctx.fillRect(0, 0, W, H);
+        
+        // Apply zoom transform if active
+        applyZoomTransform();
+        
+        drawDistantStars();
+        drawGalaxy();
+        drawPlanets();
+        updateShootingStars();
+        
+        // Restore from zoom transform
+        restoreZoomTransform();
+        
+        // Only check hover if not zooming
+        if (!isZooming) {
+            checkHover();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+
+    canvas.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    canvas.addEventListener('click', handleClick);
+
+    mouse.x = cx;
+    mouse.y = cy;
+
+    animate();
+    </script>
+</body>
+</html>
