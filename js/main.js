@@ -736,21 +736,97 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Dynamic Back to Top Button ──
-    const backToTopBtn = document.querySelector('.back-to-top');
-    if (backToTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        }, { passive: true });
+    // ── Circular Scroll Progress ──
+    const progressPath = document.querySelector('.progress-wrap path');
+    const pathLength = progressPath ? progressPath.getTotalLength() : 0;
 
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (progressPath) {
+        progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
+        progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+        progressPath.style.strokeDashoffset = pathLength;
+        progressPath.getBoundingClientRect();
+        progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
+
+        const updateProgress = function () {
+            const scroll = window.scrollY || window.pageYOffset;
+            const height = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = pathLength - (scroll * pathLength / height);
+            progressPath.style.strokeDashoffset = progress;
+        }
+
+        updateProgress();
+        window.addEventListener('scroll', updateProgress);
+
+        const offset = 50;
+        const duration = 550;
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > offset) {
+                document.querySelector('.progress-wrap').classList.add('active-progress');
+            } else {
+                document.querySelector('.progress-wrap').classList.remove('active-progress');
+            }
+        });
+
+        document.querySelector('.progress-wrap').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            return false;
         });
     }
 
+    // ── Interactive Terminal Demo ──
+    const terminalOutput = document.getElementById('terminal-output');
+    if (terminalOutput) {
+        const commands = [
+            { cmd: 'socks-proxy --port 1080', output: 'Starting SOCKS5 server on 0.0.0.0:1080...\n[INFO] Server listening. Ready for connections.' },
+            { cmd: 'curl --socks5 127.0.0.1:1080 https://checkip.amazonaws.com', output: '192.168.1.42' },
+            { cmd: 'cat ~/.config/interlaced/config.json', output: '{\n  "theme": "dark",\n  "analytics": false,\n  "updates": "auto"\n}' },
+        ];
+        
+        let cmdIndex = 0;
+        let charIndex = 0;
+        let isTyping = true;
+        
+        function typeTerminal() {
+            if (cmdIndex >= commands.length) {
+                cmdIndex = 0; // Loop
+                terminalOutput.innerHTML = '';
+            }
+            
+            const currentLine = commands[cmdIndex];
+            const promptSpan = '<span class="prompt">➜  ~</span>';
+            
+            if (isTyping) {
+                if (charIndex < currentLine.cmd.length) {
+                    const currentCmd = currentLine.cmd.substring(0, charIndex + 1);
+                    // Update the input line specifically
+                    document.querySelector('.terminal-input-line').innerHTML = `${promptSpan} ${currentCmd}<span class="cursor">█</span>`;
+                    charIndex++;
+                    setTimeout(typeTerminal, 50 + Math.random() * 50);
+                } else {
+                    isTyping = false;
+                    setTimeout(typeTerminal, 500);
+                }
+            } else {
+                // Command finished, show output
+                const cmdHtml = `<div>${promptSpan} ${currentLine.cmd}</div>`;
+                const outputHtml = `<div style="color: #ccc; margin-bottom: 8px;">${currentLine.output}</div>`;
+                terminalOutput.innerHTML += cmdHtml + outputHtml;
+                
+                // Reset input line
+                document.querySelector('.terminal-input-line').innerHTML = `${promptSpan} <span class="cursor">█</span>`;
+                
+                cmdIndex++;
+                charIndex = 0;
+                isTyping = true;
+                setTimeout(typeTerminal, 1500);
+            }
+        }
+        
+        // Start typing loop
+        setTimeout(typeTerminal, 1000);
+    }
     // ── Code Block Copy Button ──
     document.querySelectorAll('pre.highlight').forEach(pre => {
         // Wrap for positioning
@@ -885,6 +961,126 @@ document.addEventListener('DOMContentLoaded', () => {
              showToast('Shortcuts: T (Theme), ? (Help)', 'info');
         }
     });
+
+    // ── Service Worker Registration ──
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('SW registered: ', registration);
+            }).catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+        });
+    }
+
+    // ── Blog Search ──
+    const searchInput = document.getElementById('blog-search-input');
+    const postList = document.querySelector('.post-list');
+    
+    if (searchInput && postList) {
+        let posts = [];
+        fetch('/search.json').then(res => res.json()).then(data => posts = data);
+            
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = posts.filter(post => 
+                post.title.toLowerCase().includes(term) || 
+                post.excerpt.toLowerCase().includes(term)
+            );
+            renderPosts(filtered);
+        });
+        
+        function renderPosts(items) {
+            postList.innerHTML = items.map(post => `
+                <li>
+                    <div class="post-card">
+                        <span class="post-meta">${post.date}</span>
+                        <h2><a class="post-link" href="${post.url}">${post.title}</a></h2>
+                        <div class="post-excerpt">${post.excerpt}</div>
+                        <br>
+                        <a class="btn" href="${post.url}">Read More</a>
+                    </div>
+                </li>
+            `).join('');
+            if (items.length === 0) postList.innerHTML = '<p class="text-center muted">No posts found.</p>';
+        }
+    }
+
+    // ── Lightbox for Blog Images ──
+    document.querySelectorAll('.post-content img').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+            const lightbox = document.createElement('div');
+            lightbox.id = 'lightbox';
+            lightbox.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.9); display: flex; align-items: center;
+                justify-content: center; z-index: 2000; cursor: zoom-out;
+                opacity: 0; transition: opacity 0.3s ease;
+            `;
+            
+            const imgClone = document.createElement('img');
+            imgClone.src = img.src;
+            imgClone.style.cssText = `max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s ease;`;
+            
+            lightbox.appendChild(imgClone);
+            document.body.appendChild(lightbox);
+            
+            // Trigger animation
+            requestAnimationFrame(() => {
+                lightbox.style.opacity = '1';
+                imgClone.style.transform = 'scale(1)';
+            });
+            
+            lightbox.addEventListener('click', () => {
+                lightbox.style.opacity = '0';
+                imgClone.style.transform = 'scale(0.9)';
+                setTimeout(() => lightbox.remove(), 300);
+            });
+        });
+    });
+
+    // ── Cookie Consent ──
+    if (!localStorage.getItem('cookieConsent')) {
+        const banner = document.createElement('div');
+        banner.className = 'cookie-banner';
+        banner.style.cssText = `
+            position: fixed; bottom: 20px; left: 20px; max-width: 350px;
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 16px; border-radius: 8px; z-index: 1500;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; gap: 12px;
+            transform: translateY(100px); opacity: 0; transition: all 0.5s ease;
+        `;
+        banner.innerHTML = `
+            <p style="margin: 0; font-size: 14px;">We use cookies to improve your experience. By using our site, you agree to our policies.</p>
+            <div style="display: flex; gap: 8px;">
+                <button id="acceptCookies" class="pid-btn pid-btn-primary" style="padding: 6px 12px; font-size: 12px;">Accept</button>
+                <button id="closeCookies" class="pid-btn pid-btn-secondary" style="padding: 6px 12px; font-size: 12px;">Ignore</button>
+            </div>
+        `;
+        document.body.appendChild(banner);
+        
+        requestAnimationFrame(() => {
+            banner.style.transform = 'translateY(0)';
+            banner.style.opacity = '1';
+        });
+
+        const closeBanner = () => {
+            banner.style.transform = 'translateY(20px)';
+            banner.style.opacity = '0';
+            setTimeout(() => banner.remove(), 500);
+        };
+
+        document.getElementById('acceptCookies').onclick = () => {
+            localStorage.setItem('cookieConsent', 'true');
+            showToast('Cookies accepted!');
+            closeBanner();
+        };
+        
+        document.getElementById('closeCookies').onclick = closeBanner;
+    }
+
 
     requestAnimationFrame(animate);
 });
