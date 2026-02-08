@@ -539,11 +539,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Basic validation
             if (!name || !email || !subject || !message) {
+                if (window.showToast) window.showToast('Please fill in all fields.', 'error');
                 statusEl.textContent = 'Please fill in all fields.';
                 return;
             }
             const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRe.test(email)) {
+                if (window.showToast) window.showToast('Please enter a valid email address.', 'error');
                 statusEl.textContent = 'Please enter a valid email address.';
                 return;
             }
@@ -555,6 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Store a copy locally
             try { localStorage.setItem('lastContact', JSON.stringify({ name, email, subject, message, time: Date.now() })); } catch (err) { /* ignore */ }
 
+            if (window.showToast) window.showToast('Opening mail client...', 'info');
             statusEl.textContent = 'Opening mail client — if nothing happens, copy the message below.';
 
             // Try to open mail client
@@ -562,6 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Open success modal with copy area
             openContactModal(subject, decodeURIComponent(body));
+            if (window.showToast) window.showToast('Email client opened. Copy text if needed.', 'success');
             statusEl.textContent = 'Opening mail client — modal ready for copying if needed.';
         });
     }
@@ -767,13 +771,16 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
             navigator.clipboard.writeText(code).then(() => {
-                const originalText = btn.textContent;
-                btn.textContent = 'Copied!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
+                if (window.showToast) {
+                    window.showToast('Code copied to clipboard!', 'success');
+                } else {
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => { btn.textContent = originalText; }, 2000);
+                }
             }).catch(err => {
                 console.error('Failed to copy: ', err);
+                if (window.showToast) window.showToast('Failed to copy code', 'error');
             });
         });
     });
@@ -816,20 +823,48 @@ document.addEventListener('DOMContentLoaded', () => {
         if(textElement.textContent) setTimeout(type, 1000);
     }
 
-    // ── 3D Tilt Effect ──
-    document.querySelectorAll('.card').forEach(card => {
+    // ── 3D Tilt & Spotlight Effect ──
+    document.querySelectorAll('.tilt-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
+            
+            // Spotlight
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+
+            // Tilt
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             const rotateX = ((y - centerY) / centerY) * -5;
             const rotateY = ((x - centerX) / centerX) * 5;
+            
+            // Disable transition during movement for smoothness
+            card.style.transition = 'none';
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
+
         card.addEventListener('mouseleave', () => {
+            // Re-enable transition for smooth reset
+            card.style.transition = 'transform 0.5s ease-out';
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+    });
+
+    // ── Magnetic Buttons ──
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // Move button 30% of mouse distance
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0, 0)';
         });
     });
 

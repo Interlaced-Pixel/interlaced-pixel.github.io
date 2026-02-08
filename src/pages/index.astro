@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Interlaced Pixel | Developer Tools">
+    <section class="hero parallax reveal">
+        <div class="hero-content">
+            <h1>Building the Future of <br><span class="word-1">Developer</span> <span
+                    class="word-2">Performance</span>
+            </h1>
+            <p>Supercharge your workflow with our lightning-fast, portable networking tools and VS Code extensions.
+                Open source and built for efficiency.</p>
+            <div class="hero-actions">
+                <a href="#projects" class="pid-btn pid-btn-primary magnetic-btn">Explore Projects</a>
+                <a href="https://github.com/Interlaced-Pixel" class="pid-btn pid-btn-secondary magnetic-btn"
+                    target="_blank" rel="noopener">
+                    <span class="material-icons-outlined">code</span> View on GitHub
+                </a>
+            </div>
+        </div>
+        <div class="color-bar">
+            <span></span><span></span><span></span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section-padding reveal">
+        <div class="container">
+            <p class="section-title">Why Choose Interlaced Pixel?</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon blue-bg">
+                        <span class="material-icons-outlined">bolt</span>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized for speed and low latency. Our tools are written in C/C++ to ensure maximum
+                        performance on any machine.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon yellow-bg">
+                        <span class="material-icons-outlined">integration_instructions</span>
+                    </div>
+                    <h3>Developer First</h3>
+                    <p>Built by developers, for developers. Simple APIs, clean documentation, and tools that just
+                        work out of the box.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon pink-bg">
+                        <span class="material-icons-outlined">public</span>
+                    </div>
+                    <h3>Open Source</h3>
+                    <p>Fully open source and community-driven. Inspect the code, contribute, and use it freely in
+                        your projects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple-bg">
+                        <span class="material-icons-outlined">devices</span>
+                    </div>
+                    <h3>Cross Platform</h3>
+                    <p>Run anywhere. Our tools support Windows, macOS, and Linux seamlessly with zero configuration.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust / Community Section -->
+    <section class="trust section-padding reveal">
+        <div class="container text-center">
+            <div class="trust-content">
+                <h2>Trusted by Developers Worldwide</h2>
+                <p class="trust-description"
+                    style="max-width: 600px; margin: 0 auto; font-size: 18px; color: var(--on-surface-secondary);">
+                    Join a growing community of developers building faster, more efficient software with our
+                    open-source tools.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <div id="projects">
+        <p class="section-title reveal">Open Source Projects</p>
+        <div class="projects">
+
+            <article class="card reveal reveal-delay-1 tilt-card spotlight-card">
+                <canvas class="puddle-canvas" aria-hidden="true"></canvas>
+                <div class="card-icon blue">
+                    <span class="material-icons-outlined">dns</span>
+                </div>
+                <h2>socks-proxy <span class="badge-new">NEW</span></h2>
+                <p>A portable, "slap it in place and forget it" SOCKS5 proxy server for Linux, Windows, and Mac.</p>
+                <a href="https://github.com/Interlaced-Pixel/socks-proxy" target="_blank" rel="noopener"
+                    class="card-link">
+                    View Source <span class="material-icons-outlined">arrow_forward</span>
+                </a>
+            </article>
+
+            <article class="card reveal reveal-delay-2 tilt-card spotlight-card">
+                <canvas class="puddle-canvas" aria-hidden="true"></canvas>
+                <div class="card-icon yellow">
+                    <span class="material-icons-outlined">bar_chart</span>
+                </div>
+                <h2>coverage-status</h2>
+                <p>VS Code extension that reads lcov files to display code coverage percentage directly in your
+                    status bar.</p>
+                <a href="https://marketplace.visualstudio.com/items?itemName=InterlacedPixel.code-coverage-status"
+                    target="_blank" rel="noopener" class="card-link">
+                    View Extension <span class="material-icons-outlined">arrow_forward</span>
+                </a>
+            </article>
+
+            <article class="card reveal reveal-delay-3 tilt-card spotlight-card">
+                <canvas class="puddle-canvas" aria-hidden="true"></canvas>
+                <div class="card-icon pink">
+                    <span class="material-icons-outlined">http</span>
+                </div>
+                <h2>http-c</h2>
+                <p>Efficient C++ HTTP library for high-performance networking tasks.</p>
+                <a href="https://github.com/Interlaced-Pixel/http-c" target="_blank" rel="noopener"
+                    class="card-link">
+                    View Source <span class="material-icons-outlined">arrow_forward</span>
+                </a>
+            </article>
+
+        </div>
+    </div>
+
+    <!-- Final CTA -->
+    <section class="cta-section section-padding reveal">
+        <div class="container text-center">
+            <div class="cta-box">
+                <h2>Ready to Optimize Your Workflow?</h2>
+                <p>Join the community and start using our high-performance tools today.</p>
+                <div class="cta-actions">
+                    <a href="https://github.com/Interlaced-Pixel" class="pid-btn pid-btn-primary" target="_blank"
+                        rel="noopener">Get Started on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

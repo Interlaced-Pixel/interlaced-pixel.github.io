@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Featured post is the latest one
+const featuredPost = allPosts[0];
+const remainingPosts = allPosts.slice(1);
+
+// Get unique categories
+const categories = [...new Set(allPosts.flatMap(post => post.data.categories || []))].filter(Boolean);
+---
+
+<Layout title="Blog | Interlaced Pixel" description="Tutorials, updates, and deep dives into networking and developer tools.">
+    
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1 class="fade-in-up">The <span class="text-gradient">Interlaced</span> Blog</h1>
+            <p class="fade-in-up delay-1">Deep dives into high-performance networking, C++, and developer tooling.</p>
+        </div>
+    </section>
+
+    <div class="blog-container">
+        
+        <!-- Featured Post -->
+        {featuredPost && (
+            <section class="featured-section fade-in-up delay-2">
+                <div class="section-label">Featured Article</div>
+                <a href={`/blog/${featuredPost.slug}/`} class="featured-card">
+                    <div class="featured-content">
+                        <div class="post-meta">
+                            <span class="category-tag">{featuredPost.data.categories?.[0] || 'Article'}</span>
+                            <span class="post-date">{featuredPost.data.date.toLocaleDateString('en-us', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                        </div>
+                        <h2>{featuredPost.data.title}</h2>
+                        <p>{featuredPost.body.substring(0, 150)}...</p>
+                        <div class="read-more">Read Article <span class="material-icons-outlined">arrow_forward</span></div>
+                    </div>
+                    <div class="featured-visual">
+                         <!-- Abstract visual or image if available -->
+                         <div class="abstract-shape"></div>
+                    </div>
+                </a>
+            </section>
+        )}
+
+        <!-- Categories -->
+        {categories.length > 0 && (
+            <div class="category-cloud fade-in-up delay-3">
+                <span class="category-label">Topics:</span>
+                {categories.map(cat => (
+                    <a href={`#`} class="category-pill">{cat}</a>
+                ))}
+            </div>
+        )}
+
+        <!-- Recent Posts Grid -->
+        <section class="recent-posts fade-in-up delay-3">
+             <div class="section-header">
+                <h3>Latest Articles</h3>
+                <div class="line"></div>
+            </div>
+            
+            <div class="post-grid">
+                {remainingPosts.map((post) => (
+                    <article class="grid-card">
+                        <a href={`/blog/${post.slug}/`} class="card-link-wrapper">
+                            <div class="card-content">
+                                <div class="post-meta-top">
+                                    <span class="category-text">{post.data.categories?.[0] || 'Post'}</span>
+                                    <span class="dot">·</span>
+                                    <time>{post.data.date.toLocaleDateString('en-us', { month: 'short', day: 'numeric' })}</time>
+                                </div>
+                                <h4>{post.data.title}</h4>
+                                <p>{post.body.substring(0, 120)}...</p>
+                                <div class="author-row">
+                                     <div class="author-avatar">{post.data.author?.[0] || 'I'}</div>
+                                     <span class="author-name">{post.data.author || 'Interlaced Pixel'}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                ))}
+            </div>
+        </section>
+
+        <!-- Newsletter CTA -->
+        <section class="newsletter-cta fade-in-up delay-4">
+            <div class="newsletter-content">
+                <h3>Join the inner circle</h3>
+                <p>Get notified about new high-performance tools and library releases.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="dev@example.com" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+    </div>
+</Layout>

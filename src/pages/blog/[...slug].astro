@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+        <header class="post-header">
+            <nav class="breadcrumbs">
+                <a href="/">Home</a> &gt;
+                <a href="/blog">Blog</a> &gt;
+                <span>{post.data.title}</span>
+            </nav>
+
+            <div class="post-meta">
+                <time datetime={post.data.date.toISOString()} itemprop="datePublished">
+                    {post.data.date.toLocaleDateString('en-us', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    })}
+                </time>
+                {post.data.author && (
+                    <> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{post.data.author}</span></span></>
+                )}
+            </div>
+            <h1 class="post-title" itemprop="name headline">{post.data.title}</h1>
+        </header>
+
+        <div class="post-content" itemprop="articleBody">
+            <Content />
+        </div>
+
+        <div class="share-buttons">
+            <span class="share-label">Share this post:</span>
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=https://interlaced-pixel.github.io/blog/${post.slug}/`}
+            target="_blank" rel="noopener" class="share-btn share-twitter" data-tooltip="Share on X/Twitter">
+            𝕏
+            </a>
+            <a href={`https://www.linkedin.com/shareArticle?mini=true&url=https://interlaced-pixel.github.io/blog/${post.slug}/&title=${encodeURIComponent(post.data.title)}`}
+            target="_blank" rel="noopener" class="share-btn share-linkedin" data-tooltip="Share on LinkedIn">
+            in
+            </a>
+            <button class="share-btn share-copy" data-tooltip="Copy link"
+             onclick="navigator.clipboard.writeText(window.location.href).then(() => { this.textContent = '✓'; setTimeout(() => this.textContent = '🔗', 1500); })">
+            🔗
+            </button>
+        </div>
+
+    </article>
+</Layout>
