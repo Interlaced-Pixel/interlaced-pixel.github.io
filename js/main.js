@@ -158,6 +158,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ── Active Section Highlighting ──
+    const sections = document.querySelectorAll('section, header, footer, div#projects');
+    const navLinks = document.querySelectorAll('.topbar-link');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active class from all links
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                // Add active class to corresponding link
+                const id = entry.target.getAttribute('id');
+                if (id) {
+                    const activeLink = document.querySelector(`.topbar-link[href="#${id}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+
     // ── Lightning / Thunder background ──
     const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
@@ -717,6 +745,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 backToTopBtn.classList.remove('visible');
             }
         }, { passive: true });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
 
     // ── Code Block Copy Button ──
@@ -744,6 +776,114 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Failed to copy: ', err);
             });
         });
+    });
+
+    // ── Typewriter Effect ──
+    const textElement = document.querySelector('.word-2');
+    if (textElement) {
+        const words = ["Performance", "Efficiency", "Speed", "Reliability"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentWord = words[wordIndex % words.length];
+            
+            if (isDeleting) {
+                textElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50;
+            } else {
+                textElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 150;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typeSpeed = 2000;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex++;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+        
+        // Start typing if element exists and has content
+        if(textElement.textContent) setTimeout(type, 1000);
+    }
+
+    // ── 3D Tilt Effect ──
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+    });
+
+    // ── Button Ripple Effect ──
+    document.querySelectorAll('.pid-btn, .topbar-btn, .card-link').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const circle = document.createElement('span');
+            circle.classList.add('ripple');
+            circle.style.left = x + 'px';
+            circle.style.top = y + 'px';
+            
+            this.appendChild(circle);
+            
+            setTimeout(() => circle.remove(), 600);
+        });
+    });
+
+    // ── Toast System ──
+    window.showToast = function(message, type = 'success') {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            document.body.appendChild(container);
+        }
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `<span class="material-icons-outlined">${type === 'success' ? 'check_circle' : 'error'}</span><span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 100);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    };
+
+    // ── Keyboard Shortucts ──
+    document.addEventListener('keydown', (e) => {
+        // Toggle Theme with 'T'
+        if (e.key.toLowerCase() === 't' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+            const toggle = document.querySelector('.theme-toggle');
+            if (toggle) toggle.click();
+            const theme = document.documentElement.getAttribute('data-theme');
+            showToast(`Switched to ${theme === 'dark' ? 'Dark' : 'Light'} Mode`);
+        }
+        
+        // Help Modal with '?' (Shift + /)
+        if (e.key === '?' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+             showToast('Shortcuts: T (Theme), ? (Help)', 'info');
+        }
     });
 
     requestAnimationFrame(animate);

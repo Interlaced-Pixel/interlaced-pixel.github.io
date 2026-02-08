@@ -29,12 +29,149 @@
     pointer-events: none;
 }
 
+    pointer-events: none;
+}
+
+/* ── Page Fade In ── */
+body.fade-in {
+    animation: fadeInPage 0.8s ease-out;
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Floating Blobs ── */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -2;
+    opacity: 0.4;
+    animation: floatBlob 20s infinite alternate;
+}
+
+body::before {
+    background: var(--blue);
+    top: -50px;
+    left: -50px;
+}
+
+body::after {
+    background: var(--pink);
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -10s;
+}
+
+@keyframes floatBlob {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 30px); }
+}
+
 body {
     font-family: 'Google Sans Text', 'Google Sans', 'Roboto', Arial, sans-serif;
     background-color: var(--bg);
     color: var(--on-surface);
     line-height: 1.6;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--on-surface-secondary);
+    border-radius: 5px;
+    border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--blue);
+}
+
+/* ── Custom Selection ── */
+::selection {
+    background: var(--blue);
+    color: white;
+}
+
+
+/* ── Accessibility: Skip Link ── */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--blue);
+    color: white;
+    padding: 8px;
+    z-index: 1000;
+    transition: top 0.3s;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ── Reading Progress Bar ── */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--pink);
+    width: 0%;
+    z-index: 1001;
+    transition: width 0.1s;
+}
+
+/* ── Back to Top Button ── */
+.back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-hover);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background 0.2s;
+    z-index: 90;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--pink);
+    transform: translateY(-4px);
 }
 
 /* ── Top Nav ── */
@@ -95,12 +232,16 @@ body {
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 24px;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
+    position: relative;
 }
 
-.topbar-link:hover {
+.topbar-link:hover,
+.topbar-link.active {
     background: var(--surface);
+    color: var(--blue);
 }
+
 
 .topbar-btn {
     display: inline-flex;
@@ -139,7 +280,25 @@ body {
 }
 
 .hero h1 .word-1 { color: var(--blue); }
-.hero h1 .word-2 { color: var(--pink); }
+.hero h1 .word-2 { 
+    color: var(--pink); 
+    position: relative;
+    display: inline-block;
+}
+
+.hero h1 .word-2::after {
+    content: '|';
+    position: absolute;
+    right: -10px;
+    animation: blink 0.7s infinite;
+    color: var(--on-surface);
+    opacity: 0.7;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
 
 .hero p {
     font-size: 20px;
@@ -201,9 +360,13 @@ body {
     display: flex;
     flex-direction: column;
     overflow: visible;
+    overflow: visible;
     filter: drop-shadow(0 6px 18px rgba(16,24,40,0.06));
     animation: puddleFloat 6s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
+
 
 @keyframes puddleFloat {
     0% { transform: translateY(0) rotate(-0.12deg); border-radius: 40px 40px 48px 48px; }
@@ -285,7 +448,28 @@ body {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
+
+.badge-new {
+    background: var(--pink);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 107, 138, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(232, 107, 138, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 107, 138, 0); }
+}
+
 
 .card p {
     font-size: 14px;
@@ -378,6 +562,26 @@ footer {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.social-links {
+    display: flex;
+    gap: 16px;
+}
+
+.social-links a {
+    color: var(--on-surface-secondary);
+    transition: color 0.2s, transform 0.2s;
+    display: inline-flex;
+}
+
+.social-links a:hover {
+    color: var(--blue);
+    transform: translateY(-2px);
 } 
 
 footer a {
@@ -745,9 +949,85 @@ button:focus-visible {
     border-color: rgba(255,255,255,0.1);
 }
 
-[data-theme="dark"] .pid-btn-secondary:hover {
     background: rgba(255,255,255,0.1);
 }
+
+/* ── Ripple Effect ── */
+.pid-btn, .topbar-btn, .card-link {
+    position: relative;
+    overflow: hidden;
+}
+
+span.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    background-color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ── Toast Notifications ── */
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--surface);
+    color: var(--on-surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-hover);
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    min-width: 280px;
+}
+
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-success .material-icons-outlined { color: #34A853; }
+.toast-error .material-icons-outlined { color: #EA4335; }
+.toast-info .material-icons-outlined { color: var(--blue); }
+
+/* ── Reduce Motion ── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .card:hover { transform: none !important; }
+    .reveal { opacity: 1; transform: none; }
+    #bg-canvas { display: none; }
+}
+
 
 /* ── Redesign: Features Section ── */
 .features-grid {
