@@ -260,7 +260,7 @@ body {
 
 .topbar-btn:hover {
     background: #3a7bc8;
-    box-shadow: var(--shadow);
+    box-shadow: 0 0 15px rgba(74, 144, 217, 0.4);
 }
 
 /* ── Hero ── */
@@ -279,9 +279,17 @@ body {
     margin-bottom: 16px;
 }
 
-.hero h1 .word-1 { color: var(--blue); }
+.hero h1 .word-1 { 
+    background: linear-gradient(135deg, var(--blue) 0%, #64b5f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 .hero h1 .word-2 { 
-    color: var(--pink); 
+    background: linear-gradient(135deg, var(--pink) 0%, #f48fb1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     position: relative;
     display: inline-block;
 }
@@ -365,6 +373,41 @@ body {
     animation: puddleFloat 6s ease-in-out infinite;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    overflow: hidden; /* For spotlight */
+}
+
+/* ── Spotlight Effect ── */
+.card::before,
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(255, 255, 255, 0.06), 
+        transparent 40%
+    );
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.card:hover::before,
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+[data-theme="dark"] .card::before,
+[data-theme="dark"] .feature-card::before {
+    background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(255, 255, 255, 0.03), 
+        transparent 40%
+    );
 }
 
 
@@ -439,9 +482,9 @@ body {
     color: #fff;
 }
 
-.card-icon.blue   { background: var(--blue); }
-.card-icon.yellow { background: var(--yellow); }
-.card-icon.pink   { background: var(--pink); }
+.card-icon.blue   { background: linear-gradient(135deg, var(--blue), #1976D2); box-shadow: 0 4px 10px rgba(74, 144, 217, 0.3); }
+.card-icon.yellow { background: linear-gradient(135deg, var(--yellow), #FFA000); box-shadow: 0 4px 10px rgba(245, 197, 66, 0.3); }
+.card-icon.pink   { background: linear-gradient(135deg, var(--pink), #D81B60); box-shadow: 0 4px 10px rgba(232, 107, 138, 0.3); }
 
 .card h2 {
     font-family: 'Google Sans', sans-serif;
@@ -1194,6 +1237,8 @@ span.ripple {
     border-radius: 16px;
     text-align: center;
     transition: transform 0.2s;
+    position: relative;
+    overflow: hidden;
 }
 
 .feature-card:hover {

@@ -808,6 +808,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ── Card Spotlight Effect ──
+    document.querySelectorAll('.card, .feature-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
     // ── Magnetic Buttons ──
     document.querySelectorAll('.magnetic-btn').forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
