@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Projects — Interlaced Pixel" description="Explore our open source tools and extensions.">
+    
+    <!-- Projects Hero -->
+    <section class="projects-hero fade-in-up">
+        <div class="container text-center" style="padding-top: 120px; padding-bottom: 60px;">
+            <h1>Our <span class="text-gradient">Projects</span></h1>
+            <p style="max-width: 600px; margin: 0 auto; color: var(--on-surface-secondary); font-size: 1.2rem;">
+                Open source tools built for performance, portability, and developer efficiency.
+            </p>
+        </div>
+    </section>
+
+    <!-- Project Grid -->
+    <div class="container section-padding">
+        <div class="projects">
+
+            <article class="project-card-enhanced reveal tilt-card">
+                <div class="card-icon blue">
+                    <span class="material-icons-outlined">dns</span>
+                </div>
+                <h2>socks-proxy <span class="badge-new">NEW</span></h2>
+                <p>A portable, "slap it in place and forget it" SOCKS5 proxy server. Zero dependencies, single binary, highly performant.</p>
+                
+                <div class="tech-stack">
+                    <span class="tech-tag">C</span>
+                    <span class="tech-tag">Networking</span>
+                    <span class="tech-tag">Multi-threaded</span>
+                </div>
+
+                <div class="project-stats">
+                    <div class="stat-item" title="License">
+                        <span class="material-icons-outlined">gavel</span> <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dotted;">PolyForm NC 1.0.0</a>
+                    </div>
+                    <div class="stat-item" title="Version">
+                        <span class="material-icons-outlined">tag</span> v1.0.0
+                    </div>
+                </div>
+
+                <div class="card-actions" style="margin-top: 24px;">
+                    <a href="https://github.com/Interlaced-Pixel/socks-proxy" target="_blank" rel="noopener" class="card-link">
+                        View Source <span class="material-icons-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card-enhanced reveal reveal-delay-1 tilt-card">
+                <div class="card-icon yellow">
+                    <span class="material-icons-outlined">bar_chart</span>
+                </div>
+                <h2>coverage-status</h2>
+                <p>VS Code extension that reads lcov files to display code coverage percentage directly in your status bar. Seamless integration.</p>
+                
+                <div class="tech-stack">
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">VS Code API</span>
+                </div>
+
+                <div class="project-stats">
+                    <div class="stat-item" title="Installs">
+                        <span class="material-icons-outlined">download</span> 500+
+                    </div>
+                    <div class="stat-item" title="License">
+                        <span class="material-icons-outlined">gavel</span> <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dotted;">PolyForm NC 1.0.0</a>
+                    </div>
+                </div>
+
+                <div class="card-actions" style="margin-top: 24px;">
+                    <a href="https://marketplace.visualstudio.com/items?itemName=InterlacedPixel.code-coverage-status" target="_blank" rel="noopener" class="card-link">
+                        View Extension <span class="material-icons-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card-enhanced reveal reveal-delay-2 tilt-card">
+                <div class="card-icon pink">
+                    <span class="material-icons-outlined">http</span>
+                </div>
+                <h2>http-c</h2>
+                <p>Efficient C++ HTTP library for high-performance networking tasks. Designed for modern C++ standards.</p>
+                
+                <div class="tech-stack">
+                    <span class="tech-tag">C++17</span>
+                    <span class="tech-tag">Networking</span>
+                    <span class="tech-tag">HTTP/1.1</span>
+                </div>
+
+                <div class="project-stats">
+                    <div class="stat-item" title="License">
+                        <span class="material-icons-outlined">gavel</span> <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dotted;">PolyForm NC 1.0.0</a>
+                    </div>
+                    <div class="stat-item" title="Status">
+                        <span class="material-icons-outlined">update</span> Alpha
+                    </div>
+                </div>
+
+                <div class="card-actions" style="margin-top: 24px;">
+                    <a href="https://github.com/Interlaced-Pixel/http-c" target="_blank" rel="noopener" class="card-link">
+                        View Source <span class="material-icons-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </article>
+            
+        </div>
+    </div>
+
+</Layout>
