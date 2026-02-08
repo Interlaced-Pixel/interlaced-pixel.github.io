@@ -386,6 +386,236 @@ footer a:hover {
     text-decoration: underline;
 }
 
+/* ── Dark Mode ── */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #1a1a2e;
+        --surface: #16213e;
+        --on-surface: #eaeaea;
+        --on-surface-secondary: #a0a0a0;
+        --border: #2a2a4a;
+        --shadow: 0 1px 2px 0 rgba(0,0,0,.4), 0 1px 3px 1px rgba(0,0,0,.3);
+        --shadow-hover: 0 1px 3px 0 rgba(0,0,0,.4), 0 4px 8px 3px rgba(0,0,0,.3);
+    }
+}
+
+[data-theme="dark"] {
+    --bg: #1a1a2e;
+    --surface: #16213e;
+    --on-surface: #eaeaea;
+    --on-surface-secondary: #a0a0a0;
+    --border: #2a2a4a;
+    --shadow: 0 1px 2px 0 rgba(0,0,0,.4), 0 1px 3px 1px rgba(0,0,0,.3);
+    --shadow-hover: 0 1px 3px 0 rgba(0,0,0,.4), 0 4px 8px 3px rgba(0,0,0,.3);
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] .topbar,
+[data-theme="dark"] footer {
+    background-color: var(--bg);
+}
+
+[data-theme="dark"] .topbar {
+    background: rgba(26, 26, 46, 0.9);
+}
+
+[data-theme="dark"] .card {
+    background: linear-gradient(180deg, rgba(22,33,62,0.85), rgba(26,26,46,0.92));
+    border-color: rgba(60,60,100,0.5);
+}
+
+[data-theme="dark"] .contact-panel {
+    background: rgba(22,33,62,0.92);
+}
+
+/* ── Theme Toggle ── */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--on-surface-secondary);
+    transition: background 0.2s, color 0.2s;
+}
+
+.theme-toggle:hover {
+    background: var(--surface);
+    color: var(--on-surface);
+}
+
+.theme-toggle .material-icons-outlined {
+    font-size: 20px;
+}
+
+/* ── Keyboard Focus Indicators ── */
+*:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.topbar-btn:focus-visible,
+.card-link:focus-visible,
+.topbar-link:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+    border-radius: 24px;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* ── Mobile Hamburger Menu ── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 24px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 110;
+}
+
+.hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--on-surface);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ── Tooltips ── */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    padding: 6px 12px;
+    background: var(--on-surface);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 200;
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-8px);
+}
+
+/* ── Scroll Reveal Animations ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── Loading Skeleton ── */
+.skeleton {
+    background: linear-gradient(90deg, var(--surface) 25%, rgba(255,255,255,0.3) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ── Hero Parallax ── */
+.hero.parallax h1,
+.hero.parallax p {
+    transition: transform 0.1s ease-out;
+}
+
+/* ── Form Validation Styles ── */
+#contact-form input:valid,
+#contact-form textarea:valid {
+    border-color: #34A853;
+}
+
+#contact-form input:invalid:not(:placeholder-shown),
+#contact-form textarea:invalid:not(:placeholder-shown) {
+    border-color: #EA4335;
+}
+
+.validation-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.validation-icon.valid { color: #34A853; }
+.validation-icon.invalid { color: #EA4335; }
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+    padding-right: 36px;
+}
+
+.error-message {
+    color: #EA4335;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
     .hero h1 { font-size: 32px; }
@@ -393,4 +623,53 @@ footer a:hover {
     .topbar-title { font-size: 16px; }
     .topbar-link { display: none; }
     .projects { grid-template-columns: 1fr; }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .topbar-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: var(--bg);
+        flex-direction: column;
+        padding: 80px 24px 24px;
+        gap: 8px;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        z-index: 105;
+    }
+    
+    .topbar-nav.active {
+        right: 0;
+    }
+    
+    .topbar-nav .topbar-link {
+        display: block;
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+    
+    .topbar-nav .topbar-btn {
+        margin-top: 16px;
+    }
+    
+    .menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 100;
+    }
+    
+    .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
 }

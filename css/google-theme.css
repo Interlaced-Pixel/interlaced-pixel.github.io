@@ -325,3 +325,82 @@ footer.site-footer {
   color: var(--google-text-secondary);
   font-size: 14px;
 }
+
+/* ── Social Share Buttons ── */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--google-grey-300);
+}
+
+.share-label {
+  font-size: 14px;
+  color: var(--google-text-secondary);
+  font-weight: 500;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--google-grey-100);
+  color: var(--google-text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+  position: relative;
+}
+
+.share-btn:hover {
+  transform: scale(1.1);
+}
+
+.share-twitter:hover {
+  background: #000;
+  color: #fff;
+}
+
+.share-linkedin:hover {
+  background: #0077B5;
+  color: #fff;
+}
+
+.share-copy:hover {
+  background: var(--google-blue);
+  color: #fff;
+}
+
+/* ── Dark Mode Support ── */
+[data-theme="dark"] {
+  --google-grey-100: #2a2a3e;
+  --google-grey-300: #3a3a5e;
+  --google-text: #eaeaea;
+  --google-text-secondary: #a0a0a0;
+}
+
+[data-theme="dark"] body {
+  background-color: #1a1a2e;
+}
+
+[data-theme="dark"] header.site-header {
+  background-color: rgba(26, 26, 46, 0.95);
+}
+
+[data-theme="dark"] .post-card {
+  background: #1e1e36;
+  border-color: #3a3a5e;
+}
+
+[data-theme="dark"] .share-btn {
+  background: #2a2a3e;
+}
+

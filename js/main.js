@@ -3,6 +3,150 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ── Dark Mode Toggle ──
+    const themeToggle = document.querySelector('.theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        const icon = themeToggle?.querySelector('.material-icons-outlined');
+        if (icon) {
+            icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+    }
+    
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else if (prefersDark.matches) {
+        setTheme('dark');
+    }
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+    }
+    
+    // Listen for system preference changes
+    prefersDark.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+
+    // ── Mobile Hamburger Menu ──
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.topbar-nav');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            const isActive = hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            menuOverlay?.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+            document.body.style.overflow = isActive ? 'hidden' : '';
+        });
+        
+        menuOverlay?.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        });
+        
+        // Close menu when link clicked
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                menuOverlay?.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+
+    // ── Scroll Reveal Animation ──
+    const revealElements = document.querySelectorAll('.reveal');
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // ── Hero Parallax Effect ──
+    const heroSection = document.querySelector('.hero.parallax');
+    if (heroSection) {
+        const heroH1 = heroSection.querySelector('h1');
+        const heroP = heroSection.querySelector('p');
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroHeight = heroSection.offsetHeight;
+            
+            if (scrollY < heroHeight) {
+                const parallaxAmount = scrollY * 0.3;
+                if (heroH1) heroH1.style.transform = `translateY(${parallaxAmount}px)`;
+                if (heroP) heroP.style.transform = `translateY(${parallaxAmount * 0.5}px)`;
+            }
+        }, { passive: true });
+    }
+
+    // ── Real-time Form Validation ──
+    const formInputs = document.querySelectorAll('#contact-form input, #contact-form textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('blur', () => {
+            validateInput(input);
+        });
+        
+        input.addEventListener('input', () => {
+            if (input.classList.contains('touched')) {
+                validateInput(input);
+            }
+        });
+    });
+    
+    function validateInput(input) {
+        input.classList.add('touched');
+        const isValid = input.checkValidity();
+        
+        // Remove existing validation icons
+        const existingIcon = input.parentElement.querySelector('.validation-icon');
+        if (existingIcon) existingIcon.remove();
+        
+        // Add validation icon
+        if (input.value.trim() !== '') {
+            const icon = document.createElement('span');
+            icon.className = `validation-icon material-icons-outlined ${isValid ? 'valid' : 'invalid'}`;
+            icon.textContent = isValid ? 'check_circle' : 'error';
+            
+            // Wrap input if not already wrapped
+            if (!input.parentElement.classList.contains('input-wrapper')) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'input-wrapper';
+                input.parentNode.insertBefore(wrapper, input);
+                wrapper.appendChild(input);
+            }
+            input.parentElement.appendChild(icon);
+        }
+    }
+
     // ── Smooth scroll for anchor links ──
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', (e) => {
