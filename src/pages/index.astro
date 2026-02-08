@@ -28,8 +28,8 @@ import Layout from '../layouts/Layout.astro';
         <div class="container">
             <p class="section-title">Featured Project</p>
             
-            <div class="projects" style="grid-template-columns: 1fr; max-width: 1000px; margin: 0 auto;">
-                <article class="project-hero-card tilt-card">
+            <div class="projects featured-projects-layout">
+                <article class="project-hero-card tilt-card spotlight-card">
                     <canvas class="puddle-canvas" aria-hidden="true"></canvas>
                     <div class="project-hero-content">
                         <div class="card-icon blue">
@@ -44,7 +44,7 @@ import Layout from '../layouts/Layout.astro';
                             <span class="tech-tag">Cross-platform</span>
                         </div>
 
-                        <div class="project-stats" style="margin-top: 24px; border-top: none; padding-top: 0;">
+                        <div class="project-stats project-stats-pure">
                             <div class="stat-item" title="License">
                             </div>
                         </div>
@@ -59,20 +59,20 @@ import Layout from '../layouts/Layout.astro';
 
                     <div class="project-hero-visual">
                         <div class="code-preview">
-                            <div class="code-line" style="color:#569CD6">int main(int argc, char *argv[]) &#123;</div>
-                            <div class="code-line" style="padding-left: 20px; color:#DCDCAA">setup_socket_server();</div>
-                            <div class="code-line" style="padding-left: 20px; color:#C586C0">while (running) &#123;</div>
-                            <div class="code-line" style="padding-left: 40px; color:#DCDCAA">accept_connection();</div>
-                            <div class="code-line" style="padding-left: 40px; color:#4EC9B0">spawn_thread(handle_client);</div>
-                            <div class="code-line" style="padding-left: 20px;">&#125;</div>
-                            <div class="code-line" style="color:#C586C0">return 0;</div>
+                            <div class="code-line c-keywords">int main(int argc, char *argv[]) &#123;</div>
+                            <div class="code-line indent-1 c-func">setup_socket_server();</div>
+                            <div class="code-line indent-1 c-control">while (running) &#123;</div>
+                            <div class="code-line indent-2 c-func">accept_connection();</div>
+                            <div class="code-line indent-2 c-type">spawn_thread(handle_client);</div>
+                            <div class="code-line indent-1">&#125;</div>
+                            <div class="code-line c-control">return 0;</div>
                             <div class="code-line">&#125;</div>
                         </div>
                     </div>
                 </article>
             </div>
             
-            <div class="text-center" style="margin-top: 40px;">
+            <div class="text-center view-all-container">
                 <a href="/projects" class="pid-btn pid-btn-secondary">
                     View All Projects <span class="material-icons-outlined">arrow_forward</span>
                 </a>
@@ -128,8 +128,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="container text-center">
             <div class="trust-content">
                 <h2>Trusted by Developers Worldwide</h2>
-                <p class="trust-description"
-                    style="max-width: 600px; margin: 0 auto; font-size: 18px; color: var(--on-surface-secondary);">
+                <p class="trust-description">
                     Join a growing community of developers building faster, more efficient software with our
                     open-source tools.
                 </p>

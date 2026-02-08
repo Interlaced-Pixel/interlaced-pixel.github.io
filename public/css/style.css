@@ -269,6 +269,20 @@ body {
     padding: 80px 24px 60px;
     max-width: 720px;
     margin: 0 auto;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(74, 144, 217, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .hero h1 {
@@ -1119,6 +1133,26 @@ So we set spotlight z-index to 2, it acts as overlay.
     background: var(--blue);
     color: white;
     box-shadow: 0 4px 12px rgba(74, 144, 217, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.pid-btn-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    transform: scale(0);
+    transition: transform 0.6s ease-out;
+    pointer-events: none;
+}
+
+.pid-btn-primary:hover::after {
+    transform: scale(1);
+    transition: transform 0s;
 }
 
 .pid-btn-primary:hover {
@@ -1244,6 +1278,8 @@ span.ripple {
 .feature-card:hover {
     background: var(--surface);
     transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.05);
+    border-color: rgba(74, 144, 217, 0.1);
 }
 
 [data-theme="dark"] .feature-card:hover {
@@ -2428,3 +2464,35 @@ span.ripple {
         order: -1;
     }
 }
+
+/* ── Refactored Utility Classes ── */
+.featured-projects-layout {
+    grid-template-columns: 1fr;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.project-stats-pure {
+    margin-top: 24px;
+    border-top: none;
+    padding-top: 0;
+}
+
+.view-all-container {
+    margin-top: 40px;
+}
+
+.trust-description {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: var(--on-surface-secondary);
+}
+
+/* Code Syntax Highlighting */
+.c-keywords { color: #569CD6; }
+.c-func { color: #DCDCAA; }
+.c-control { color: #C586C0; }
+.c-type { color: #4EC9B0; }
+.indent-1 { padding-left: 20px; }
+.indent-2 { padding-left: 40px; }
