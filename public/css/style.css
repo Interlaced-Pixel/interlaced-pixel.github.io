@@ -2496,3 +2496,456 @@ span.ripple {
 .c-type { color: #4EC9B0; }
 .indent-1 { padding-left: 20px; }
 .indent-2 { padding-left: 40px; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ██╗   ██╗██╗  ██╗    ██╗██╗   ██╗██╗    ██╗███╗   ███╗██████╗ ██████╗  ██████╗ ██╗   ██╗███████╗███╗   ███╗███████╗███╗   ██╗████████╗███████╗
+   ██║   ██║╚██╗██╔╝   ██╔╝██║   ██║██║    ██║████╗ ████║██╔══██╗██╔══██╗██╔═══██╗██║   ██║██╔════╝████╗ ████║██╔════╝████╗  ██║╚══██╔══╝██╔════╝
+   ██║   ██║ ╚███╔╝   ██╔╝ ██║   ██║██║    ██║██╔████╔██║██████╔╝██████╔╝██║   ██║██║   ██║█████╗  ██╔████╔██║█████╗  ██╔██╗ ██║   ██║   ███████╗
+   ██║   ██║ ██╔██╗  ██╔╝  ██║   ██║██║    ██║██║╚██╔╝██║██╔═══╝ ██╔══██╗██║   ██║╚██╗ ██╔╝██╔══╝  ██║╚██╔╝██║██╔══╝  ██║╚██╗██║   ██║   ╚════██║
+   ╚██████╔╝██╔╝ ██╗██╔╝   ╚██████╔╝██║    ██║██║ ╚═╝ ██║██║     ██║  ██║╚██████╔╝ ╚████╔╝ ███████╗██║ ╚═╝ ██║███████╗██║ ╚████║   ██║   ███████║
+    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═════╝ ╚═╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚═╝  ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── IMPROVEMENT 1: Animated Gradient Text Hero ── */
+.text-gradient-animated {
+    background: linear-gradient(
+        90deg,
+        var(--blue) 0%,
+        var(--pink) 25%,
+        var(--yellow) 50%,
+        var(--pink) 75%,
+        var(--blue) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s linear infinite;
+    display: inline-block;
+    position: relative;
+}
+
+.text-gradient-animated::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: inherit;
+    filter: blur(20px);
+    opacity: 0.5;
+    z-index: -1;
+    animation: gradientGlow 4s linear infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes gradientGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* Shimmer overlay effect */
+.text-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.text-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: textShimmer 3s infinite;
+}
+
+@keyframes textShimmer {
+    0% { left: -100%; }
+    50%, 100% { left: 200%; }
+}
+
+/* Hero word cycling glow */
+.word-1 {
+    color: var(--blue);
+    text-shadow: 0 0 20px rgba(74, 144, 217, 0.5);
+    animation: wordPulse1 3s ease-in-out infinite;
+}
+
+.word-2 {
+    background: linear-gradient(90deg, var(--pink), var(--yellow), var(--pink));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s linear infinite;
+    text-shadow: none;
+    filter: drop-shadow(0 0 10px rgba(232, 107, 138, 0.4));
+}
+
+@keyframes wordPulse1 {
+    0%, 100% { text-shadow: 0 0 20px rgba(74, 144, 217, 0.5); }
+    50% { text-shadow: 0 0 40px rgba(74, 144, 217, 0.8), 0 0 60px rgba(74, 144, 217, 0.4); }
+}
+
+/* ── IMPROVEMENT 2: Interactive Particle System Canvas ── */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* ── IMPROVEMENT 3: Scroll-Triggered Morphing Background Shapes ── */
+.morph-blob {
+    position: fixed;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    filter: blur(60px);
+    opacity: 0.15;
+    z-index: -3;
+    pointer-events: none;
+    will-change: transform, border-radius;
+    animation: morphBlob 15s ease-in-out infinite alternate;
+}
+
+.morph-blob-1 {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    top: 10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.morph-blob-2 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, var(--yellow), var(--blue));
+    top: 50%;
+    right: -10%;
+    animation-delay: -5s;
+}
+
+.morph-blob-3 {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, var(--pink), var(--yellow));
+    bottom: 10%;
+    left: 20%;
+    animation-delay: -10s;
+}
+
+@keyframes morphBlob {
+    0% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    25% {
+        border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+    }
+    50% {
+        border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+        transform: translate(30px, -30px) rotate(90deg) scale(1.1);
+    }
+    75% {
+        border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+    }
+    100% {
+        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+        transform: translate(-30px, 30px) rotate(180deg) scale(0.95);
+    }
+}
+
+/* Parallax movement on scroll */
+.morph-blob.scroll-parallax {
+    transition: transform 0.3s ease-out;
+}
+
+/* ── IMPROVEMENT 4: Enhanced Card Hover Effects with Glow Borders ── */
+.card-glow,
+.project-card-enhanced,
+.feature-card {
+    position: relative;
+    overflow: visible;
+}
+
+/* Animated gradient border */
+.card-glow::before,
+.project-card-enhanced::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+        90deg,
+        var(--blue),
+        var(--pink),
+        var(--yellow),
+        var(--pink),
+        var(--blue)
+    );
+    background-size: 300% 100%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease, background-position 0.4s ease;
+    z-index: -1;
+}
+
+.card-glow:hover::before,
+.project-card-enhanced:hover::before {
+    opacity: 1;
+    animation: borderGradient 3s linear infinite;
+}
+
+@keyframes borderGradient {
+    0% { background-position: 0% center; }
+    100% { background-position: 300% center; }
+}
+
+/* Outer glow effect */
+.card-glow::after,
+.project-card-enhanced::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: inherit;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(74, 144, 217, 0.2) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.card-glow:hover::after,
+.project-card-enhanced:hover::after {
+    opacity: 1;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+/* Enhanced icon animation on card hover */
+.project-card-enhanced:hover .card-icon,
+.feature-card:hover .feature-icon {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 8px 25px rgba(74, 144, 217, 0.4);
+}
+
+.card-icon,
+.feature-icon {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+
+/* Card content lift effect */
+.project-card-enhanced:hover h2,
+.feature-card:hover h3 {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/* ── IMPROVEMENT 5: Page Transition Animations ── */
+/* View Transitions API support */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: fadeOutSlide 0.3s ease-out forwards;
+}
+
+::view-transition-new(root) {
+    animation: fadeInSlide 0.3s ease-out forwards;
+}
+
+@keyframes fadeOutSlide {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered element animations on page load */
+.stagger-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: staggerFadeIn 0.6s ease-out forwards;
+}
+
+.stagger-in:nth-child(1) { animation-delay: 0.1s; }
+.stagger-in:nth-child(2) { animation-delay: 0.2s; }
+.stagger-in:nth-child(3) { animation-delay: 0.3s; }
+.stagger-in:nth-child(4) { animation-delay: 0.4s; }
+.stagger-in:nth-child(5) { animation-delay: 0.5s; }
+.stagger-in:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes staggerFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero entrance animation */
+.hero-entrance h1 {
+    animation: heroTitleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+}
+
+.hero-entrance p {
+    animation: heroSubtitleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+    opacity: 0;
+}
+
+.hero-entrance .hero-actions {
+    animation: heroActionsIn 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+@keyframes heroTitleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes heroSubtitleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroActionsIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Floating animation for elements */
+.float-subtle {
+    animation: floatSubtle 6s ease-in-out infinite;
+}
+
+@keyframes floatSubtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Interactive cursor glow */
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+        circle,
+        rgba(74, 144, 217, 0.15) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+}
+
+[data-theme="dark"] .cursor-glow {
+    background: radial-gradient(
+        circle,
+        rgba(74, 144, 217, 0.25) 0%,
+        transparent 70%
+    );
+}
+
+/* Section divider wave */
+.wave-divider {
+    position: relative;
+    height: 60px;
+    overflow: hidden;
+}
+
+.wave-divider svg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+.wave-divider path {
+    fill: var(--surface);
+    animation: waveMove 8s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { d: path("M0,32 C200,60 400,20 600,40 C800,60 1000,20 1200,40 L1200,60 L0,60 Z"); }
+    50% { d: path("M0,40 C200,20 400,60 600,32 C800,20 1000,60 1200,32 L1200,60 L0,60 Z"); }
+    100% { d: path("M0,32 C200,60 400,20 600,40 C800,60 1000,20 1200,40 L1200,60 L0,60 Z"); }
+}
+
+/* Dark mode particle adjustments */
+[data-theme="dark"] #particle-canvas {
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .morph-blob {
+    opacity: 0.2;
+}
+
