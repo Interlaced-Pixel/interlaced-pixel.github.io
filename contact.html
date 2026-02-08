@@ -1,50 +1,118 @@
----
-layout: default
-title: Contact
-permalink: /contact.html
----
+<!DOCTYPE html>
+<html lang="en">
 
-<section class="contact-section" id="contact">
-    <div class="contact-panel reveal">
-        <h1>Contact Us</h1>
-        <p class="muted">Have a question, partnership, or bug report? Send us a message and we'll get back within a few
-            days.</p>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Contact — Interlaced Pixel</title>
+    <meta name="description" content="Contact Interlaced Pixel">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
-        <form id="contact-form" novalidate>
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" required placeholder="Your name">
+    <!-- SEO & Social -->
+    <link rel="canonical" href="https://interlaced-pixel.github.io/contact.html">
+    <meta name="robots" content="index,follow">
+    <meta property="og:title" content="Contact — Interlaced Pixel">
+    <meta property="og:description" content="Contact Interlaced Pixel about projects, collaborations, or issues.">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "url": "https://interlaced-pixel.github.io/contact.html",
+      "name": "Contact — Interlaced Pixel",
+      "isPartOf": { "@id": "https://interlaced-pixel.github.io/#website" }
+    }
+    </script>
+</head>
 
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required placeholder="you@example.com">
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <div class="menu-overlay"></div>
 
-            <label for="subject">Subject</label>
-            <input id="subject" name="subject" type="text" required placeholder="Short subject">
-
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="6" required
-                placeholder="Tell us about your question or feedback"></textarea>
-
-            <div class="form-actions">
-                <button type="submit" class="topbar-btn">Send Message</button>
-                <div id="contact-status" role="status" aria-live="polite"></div>
+    <nav class="topbar">
+        <a href="/" class="topbar-logo">
+            <div class="logo-dots">
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
             </div>
-        </form>
+            <span class="topbar-title">Interlaced Pixel</span>
+        </a>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="topbar-nav">
+            <a href="/" class="topbar-link">Home</a>
+            <a href="blog.html" class="topbar-link">Blog</a>
+            <a href="#contact" class="topbar-link">Contact</a>
+            <button class="theme-toggle" aria-label="Toggle dark mode" data-tooltip="Toggle theme">
+                <span class="material-icons-outlined">dark_mode</span>
+            </button>
+            <a href="https://github.com/Interlaced-Pixel" class="topbar-btn" target="_blank" rel="noopener"
+                data-tooltip="View on GitHub">
+                <span class="material-icons-outlined" style="font-size:18px;">open_in_new</span>
+                GitHub
+            </a>
+        </div>
+    </nav>
 
-        <div id="contact-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true"
-            aria-labelledby="contact-modal-title" aria-describedby="contact-modal-desc">
-            <div class="modal-overlay" tabindex="-1"></div>
-            <div class="modal-panel" role="document">
-                <canvas class="puddle-canvas" aria-hidden="true"></canvas>
-                <h2 id="contact-modal-title">Message Ready</h2>
-                <p id="contact-modal-desc">Your message is prepared. If your mail client didn't open, copy and paste the
-                    message below and send it to <strong>hello@interlaced-pixel.com</strong>.</p>
-                <textarea id="contact-copy" readonly></textarea>
-                <div class="modal-actions">
-                    <button id="contact-copy-btn" class="topbar-btn">Copy</button>
-                    <button id="contact-modal-close" class="topbar-link">Close</button>
+    <main class="contact-section" id="contact">
+        <div class="contact-panel">
+            <h1>Contact Us</h1>
+            <p class="muted">Have a question, partnership, or bug report? Send us a message and we'll get back within a
+                few days.</p>
+
+            <form id="contact-form" novalidate>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" required placeholder="Your name">
+
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+                <label for="subject">Subject</label>
+                <input id="subject" name="subject" type="text" required placeholder="Short subject">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required
+                    placeholder="Tell us about your question or feedback"></textarea>
+
+                <div class="form-actions">
+                    <button type="submit" class="topbar-btn">Send Message</button>
+                    <div id="contact-status" role="status" aria-live="polite"></div>
+                </div>
+            </form>
+
+            <div id="contact-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true"
+                aria-labelledby="contact-modal-title" aria-describedby="contact-modal-desc">
+                <div class="modal-overlay" tabindex="-1"></div>
+                <div class="modal-panel" role="document">
+                    <canvas class="puddle-canvas" aria-hidden="true"></canvas>
+                    <h2 id="contact-modal-title">Message Ready</h2>
+                    <p id="contact-modal-desc">Your message is prepared. If your mail client didn't open, copy and paste
+                        the message below and send it to <strong>hello@interlaced-pixel.com</strong>.</p>
+                    <textarea id="contact-copy" readonly></textarea>
+                    <div class="modal-actions">
+                        <button id="contact-copy-btn" class="topbar-btn">Copy</button>
+                        <button id="contact-modal-close" class="topbar-link">Close</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </div>
-</section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Interlaced Pixel</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
