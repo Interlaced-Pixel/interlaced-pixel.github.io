@@ -522,53 +522,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Contact form handling ──
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const nameEl = document.getElementById('name');
-            const emailEl = document.getElementById('email');
-            const subjectEl = document.getElementById('subject');
-            const messageEl = document.getElementById('message');
-            const statusEl = document.getElementById('contact-status');
-
-            const name = nameEl.value.trim();
-            const email = emailEl.value.trim();
-            const subject = subjectEl.value.trim();
-            const message = messageEl.value.trim();
-
-            // Basic validation
-            if (!name || !email || !subject || !message) {
-                if (window.showToast) window.showToast('Please fill in all fields.', 'error');
-                statusEl.textContent = 'Please fill in all fields.';
-                return;
-            }
-            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRe.test(email)) {
-                if (window.showToast) window.showToast('Please enter a valid email address.', 'error');
-                statusEl.textContent = 'Please enter a valid email address.';
-                return;
-            }
-
-            // Build mailto fallback
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-            const mailto = `mailto:hello@interlaced-pixel.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-            // Store a copy locally
-            try { localStorage.setItem('lastContact', JSON.stringify({ name, email, subject, message, time: Date.now() })); } catch (err) { /* ignore */ }
-
-            if (window.showToast) window.showToast('Opening mail client...', 'info');
-            statusEl.textContent = 'Opening mail client — if nothing happens, copy the message below.';
-
-            // Try to open mail client
-            window.location.href = mailto;
-
-            // Open success modal with copy area
-            openContactModal(subject, decodeURIComponent(body));
-            if (window.showToast) window.showToast('Email client opened. Copy text if needed.', 'success');
-            statusEl.textContent = 'Opening mail client — modal ready for copying if needed.';
-        });
-    }
+    // Legacy mailto handler removed in favor of Formspree
+    // const contactForm = document.getElementById('contact-form');
+    // if (contactForm) { ... }
 
     // ── Puddle ripples (per-card canvas) ──
     const puddleCanvases = [];

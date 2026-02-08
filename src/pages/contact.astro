@@ -2,47 +2,102 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Contact — Interlaced Pixel" description="Contact Interlaced Pixel about projects, collaborations, or issues.">
-    <div class="contact-section" id="contact">
-        <div class="contact-panel">
-            <h1>Contact Us</h1>
-            <p class="muted">Have a question, partnership, or bug report? Send us a message and we'll get back within a
-                few days.</p>
+<Layout title="Contact — Interlaced Pixel" description="Start a project, ask a question, or just say hello.">
+    
+    <!-- Contact Hero -->
+    <section class="contact-hero fade-in-up">
+        <div class="container">
+            <h1>Let's <span class="text-gradient">Connect</span></h1>
+            <p>Have a project in mind or just want to chat? We'd love to hear from you.</p>
+        </div>
+    </section>
 
-            <form id="contact-form" novalidate>
-                <label for="name">Name</label>
-                <input id="name" name="name" type="text" required placeholder="Your name">
+    <div class="contact-container">
+        
+        <div class="contact-grid">
+            
+            <!-- Contact Info / Sidebar -->
+            <div class="contact-info fade-in-up delay-1">
+                <div class="info-card">
+                    <h3>Get in Touch</h3>
+                    <p class="muted">Fill out the form or send us a direct email. We typically respond within 24-48 hours.</p>
+                    
+                    <div class="info-item">
+                        <span class="material-icons-outlined icon">email</span>
+                        <div>
+                            <span class="label">Email</span>
+                            <a href="mailto:support@interlacedpixel.com" class="value">support@interlacedpixel.com</a>
+                        </div>
+                    </div>
 
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" required placeholder="you@example.com">
+                    <div class="info-item">
+                        <span class="material-icons-outlined icon">location_on</span>
+                        <div>
+                            <span class="label">Location</span>
+                            <span class="value">Baton Rouge, LA</span>
+                        </div>
+                    </div>
 
-                <label for="subject">Subject</label>
-                <input id="subject" name="subject" type="text" required placeholder="Short subject">
-
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="6" required
-                    placeholder="Tell us about your question or feedback"></textarea>
-
-                <div class="form-actions">
-                    <button type="submit" class="topbar-btn">Send Message</button>
-                    <div id="contact-status" role="status" aria-live="polite"></div>
-                </div>
-            </form>
-
-            <div id="contact-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true"
-                aria-labelledby="contact-modal-title" aria-describedby="contact-modal-desc">
-                <div class="modal-overlay" tabindex="-1"></div>
-                <div class="modal-panel" role="document">
-                    <canvas class="puddle-canvas" aria-hidden="true"></canvas>
-                    <h2 id="contact-modal-title">Message Ready</h2>
-                    <p id="contact-modal-desc">Your message is prepared. If your mail client didn't open, copy and paste
-                        the message below and send it to <strong>hello@interlaced-pixel.com</strong>.</p>
-                    <textarea id="contact-copy" readonly></textarea>
-                    <div class="modal-actions">
-                        <button id="contact-copy-btn" class="topbar-btn">Copy</button>
-                        <button id="contact-modal-close" class="topbar-link">Close</button>
+                    <div class="social-connect">
+                        <span class="label">Follow Us</span>
+                        <div class="social-icons">
+                            <a href="#" aria-label="GitHub"><span class="material-icons-outlined">code</span></a>
+                            <a href="#" aria-label="Twitter"><span class="material-icons-outlined">alternate_email</span></a>
+                            <a href="#" aria-label="Dribbble"><span class="material-icons-outlined">brush</span></a>
+                        </div>
                     </div>
                 </div>
+
+                <!-- FAQ or value prop -->
+                <div class="faq-mini">
+                    <h4>Why Interlaced?</h4>
+                    <p>We build high-performance, pixel-perfect web experiences with a focus on modern engineering.</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper fade-in-up delay-2">
+                <form id="contact-form" class="modern-form" action="https://formspree.io/f/mpqjzbbj" method="POST">
+                    <input type="hidden" name="_subject" value="New submission from Interlaced Pixel Contact Form">
+                    <input type="hidden" name="_next" value="/thank-you">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <div class="input-wrapper">
+                            <input id="name" name="name" type="text" required placeholder="John Doe">
+                            <span class="material-icons-outlined validation-icon">check_circle</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-wrapper">
+                            <input id="email" name="email" type="email" required placeholder="john@example.com">
+                            <span class="material-icons-outlined validation-icon">check_circle</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <div class="input-wrapper">
+                            <input id="subject" name="subject" type="text" required placeholder="Project Inquiry">
+                            <span class="material-icons-outlined validation-icon">check_circle</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <div class="input-wrapper">
+                            <textarea id="message" name="message" rows="6" required placeholder="Tell us about your project..."></textarea>
+                            <span class="material-icons-outlined validation-icon">check_circle</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions-right">
+                        <button type="submit" class="pid-btn pid-btn-primary">
+                            Send Message <span class="material-icons-outlined">send</span>
+                        </button>
+                    </div>
+                </form>
             </div>
 
         </div>
