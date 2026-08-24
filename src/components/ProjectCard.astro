@@ -3,15 +3,19 @@ import type { Project } from '../data/projects';
 
 interface Props {
 	project: Project;
-	featured?: boolean;
 }
 
-const { project, featured = false } = Astro.props;
+const { project } = Astro.props;
+const isExternal = project.href.startsWith('http');
 ---
 
-<article class:list={['project-card', `accent-${project.accent}`, { featured }]}>
+<article class:list={['project-card', `accent-${project.accent}`, { featured: project.featured }]}>
 	<div class="project-card-top">
-		<div class="project-mark" aria-hidden="true">{project.icon}</div>
+		{project.logo ? (
+			<img class="project-logo" src={project.logo} alt="" width="46" height="46" />
+		) : (
+			<div class="project-mark" aria-hidden="true">{project.icon}</div>
+		)}
 		<span class="status"><span></span>{project.status}</span>
 	</div>
 	<p class="eyebrow">{project.eyebrow}</p>
@@ -20,8 +24,8 @@ const { project, featured = false } = Astro.props;
 	<ul class="tag-list" aria-label="Technologies">
 		{project.tags.map((tag) => <li>{tag}</li>)}
 	</ul>
-	<a class="text-link" href={project.href} target="_blank" rel="noopener">
+	<a class="text-link" href={project.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener' : undefined}>
 		{project.action}
-		<span aria-hidden="true">↗</span>
+		<span aria-hidden="true">{isExternal ? '↗' : '→'}</span>
 	</a>
 </article>
