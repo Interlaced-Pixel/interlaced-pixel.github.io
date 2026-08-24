@@ -1,28 +1,46 @@
-<nav class="topbar">
-    <a href="/" class="topbar-logo">
-        <div class="logo-dots">
-            <span class="logo-dot"></span>
-            <span class="logo-dot"></span>
-            <span class="logo-dot"></span>
-        </div>
-        <span class="topbar-title glitch" data-text="Interlaced Pixel">Interlaced Pixel</span>
-    </a>
-    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    <div class="topbar-nav">
-        <a href="/projects" class="topbar-link">Projects</a>
-        <a href="/blog" class="topbar-link">Blog</a>
-        <a href="/contact" class="topbar-link">Contact</a>
-        <button class="theme-toggle" aria-label="Toggle dark mode" data-tooltip="Toggle theme">
-            <span class="material-icons-outlined">dark_mode</span>
-        </button>
-        <a href="https://github.com/Interlaced-Pixel" class="topbar-btn" target="_blank" rel="noopener"
-            data-tooltip="View on GitHub">
-            <span class="material-icons-outlined" style="font-size:18px;">open_in_new</span>
-            GitHub
-        </a>
-    </div>
-</nav>
+---
+const pathname = Astro.url.pathname;
+const links = [
+	{ href: '/projects', label: 'Projects' },
+	{ href: '/blog', label: 'Journal' },
+	{ href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="site-header">
+	<nav class="nav-shell" aria-label="Primary navigation">
+		<a href="/" class="brand" aria-label="Interlaced Pixel home">
+			<svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true">
+				<path d="M5 11h10l6 14h10M5 25h10l6-14h10"></path>
+				<circle cx="5" cy="11" r="2"></circle>
+				<circle cx="31" cy="11" r="2"></circle>
+				<circle cx="5" cy="25" r="2"></circle>
+				<circle cx="31" cy="25" r="2"></circle>
+			</svg>
+			<span>Interlaced <strong>Pixel</strong></span>
+		</a>
+
+		<button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-menu" aria-expanded="false">
+			<span></span><span></span>
+		</button>
+
+		<div class="nav-links" id="site-menu">
+			{links.map((link) => (
+				<a
+					href={link.href}
+					class:list={{ active: pathname === link.href || pathname.startsWith(`${link.href}/`) }}
+					aria-current={pathname === link.href || pathname.startsWith(`${link.href}/`) ? 'page' : undefined}
+				>
+					{link.label}
+				</a>
+			))}
+			<button class="theme-toggle" type="button" aria-label="Switch color theme">
+				<svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+				<svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path></svg>
+			</button>
+			<a class="nav-cta" href="https://github.com/Interlaced-Pixel" target="_blank" rel="noopener">
+				GitHub <span aria-hidden="true">↗</span>
+			</a>
+		</div>
+	</nav>
+</header>
