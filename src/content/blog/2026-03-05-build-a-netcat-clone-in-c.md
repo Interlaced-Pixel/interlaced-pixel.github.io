@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Build Your Own Netcat in Pure C"
 date: 2026-03-05 09:00:00 -0600
 author: "Jayian"
