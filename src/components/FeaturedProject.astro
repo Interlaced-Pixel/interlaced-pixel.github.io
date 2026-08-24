@@ -1,0 +1,38 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+	project: Project;
+}
+
+const { project } = Astro.props;
+const hero = project.screenshots?.[0] ?? (project.image ? { src: project.image, alt: project.name, caption: project.name } : null);
+---
+
+<article class="featured-project reveal">
+	{hero && (
+		<a class="featured-shot" href={project.href}>
+			<img src={hero.src} alt={hero.alt} width="1536" height="1024" />
+		</a>
+	)}
+	<div class="featured-body">
+		<p class="kicker"><span></span> Featured project</p>
+		<div class="featured-identity">
+			{project.logo && <img class="featured-logo" src={project.logo} alt="" width="72" height="72" />}
+			<div>
+				<p class="eyebrow">{project.eyebrow}</p>
+				<h2>{project.name}</h2>
+			</div>
+		</div>
+		<p>{project.longDescription ?? project.description}</p>
+		<ul class="tag-list" aria-label="Technologies">
+			{project.tags.map((tag) => <li>{tag}</li>)}
+		</ul>
+		<div class="button-row">
+			<a href={project.href} class="button primary">{project.action} <span aria-hidden="true">→</span></a>
+			{project.repoHref && (
+				<a href={project.repoHref} class="button secondary" target="_blank" rel="noopener">Source ↗</a>
+			)}
+		</div>
+	</div>
+</article>
