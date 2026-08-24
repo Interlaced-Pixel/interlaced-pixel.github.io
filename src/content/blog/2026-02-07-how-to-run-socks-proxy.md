@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "How to Run a SOCKS5 Proxy in 30 Seconds"
 date:   2026-02-06 02:00:00 -0600
 author: "Jayian"
