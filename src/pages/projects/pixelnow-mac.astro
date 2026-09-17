@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { featuredProject as project } from '../../data/projects';
+
+if (!project.screenshots) {
+	throw new Error('PixelNOW featured project is missing screenshots.');
+}
+---
+
+<Layout title="PixelNOW — Interlaced Pixel" description="Native Apple Silicon GeForce NOW client with catalog browsing, multi-account login, WebRTC and NVST streaming, and local recordings.">
+	<header class="page-hero project-detail-hero">
+		<div class="container narrow reveal">
+			<p class="kicker"><span></span> Featured project</p>
+			<h1>PixelNOW<br><em>for Mac.</em></h1>
+			<p>{project.longDescription}</p>
+			<div class="button-row">
+				{project.downloadHref && (
+					<a href={project.downloadHref} class="button primary" target="_blank" rel="noopener">Download latest ↗</a>
+				)}
+				{project.repoHref && (
+					<a href={project.repoHref} class="button secondary" target="_blank" rel="noopener">View source ↗</a>
+				)}
+			</div>
+		</div>
+	</header>
+
+	<section class="screenshot-stage">
+		<div class="container reveal">
+			<figure class="hero-shot">
+				<img src={project.screenshots[0].src} alt={project.screenshots[0].alt} width="1536" height="1024" />
+				<figcaption>{project.screenshots[0].caption}</figcaption>
+			</figure>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container detail-grid">
+			<div class="reveal">
+				<p class="kicker">What it is</p>
+				<h2>A native GeForce NOW client, not a wrapped browser.</h2>
+				<p>PixelNOW is built in Swift for Apple Silicon Macs. It signs in with NVIDIA OAuth, presents a full catalog, launches sessions, streams over native WebRTC and NVST transports, and keeps recordings and account state directly on your Mac.</p>
+			</div>
+			<ul class="spec-list reveal">
+				<li><span>Platform</span><strong>macOS · Apple Silicon</strong></li>
+				<li><span>Release</span><strong>Latest on GitHub</strong></li>
+				<li><span>Stack</span><strong>SwiftUI, WebRTC, NVST</strong></li>
+				<li><span>License</span><strong>Proprietary</strong></li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="section section-contrast">
+		<div class="container">
+			<div class="section-heading reveal">
+				<div>
+					<p class="kicker light">Capabilities</p>
+					<h2>Built for the session, not the tab.</h2>
+				</div>
+			</div>
+			<ol class="capability-grid">
+				{project.highlights?.map((item, index) => (
+					<li class="reveal">
+						<span>{String(index + 1).padStart(2, '0')}</span>
+						<p>{item}</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section gallery-section">
+		<div class="container">
+			<div class="section-heading reveal">
+				<div>
+					<p class="kicker">Screenshots</p>
+					<h2>From catalog to stream.</h2>
+				</div>
+			</div>
+			<div class="screenshot-grid">
+				{project.screenshots.map((shot) => (
+					<figure class="shot reveal">
+						<img src={shot.src} alt={shot.alt} width="1536" height="1024" />
+						<figcaption>{shot.caption}</figcaption>
+					</figure>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="cta-band">
+		<div class="container reveal">
+			<p class="kicker">Get the client</p>
+			<h2>PixelNOW for Mac is live.</h2>
+			<div class="button-row" style="justify-content:center;">
+				{project.downloadHref && (
+					<a href={project.downloadHref} class="button light-button" target="_blank" rel="noopener">Latest release ↗</a>
+				)}
+				<a href="/projects" class="button secondary">All projects</a>
+			</div>
+		</div>
+	</section>
+</Layout>
