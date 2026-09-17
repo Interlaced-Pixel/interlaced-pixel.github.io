@@ -55,23 +55,13 @@ export const projects: Project[] = [
 		screenshots: [
 			{
 				src: '/images/pixelnow/pixelnow-catalog.jpg',
-				alt: 'PixelNOW catalog with a cinematic hero and game rails',
-				caption: 'Catalog home — hero rotation, search, and game rails',
+				alt: 'PixelNOW catalog interface displaying game library and detailed game information sidebar',
+				caption: 'Catalog & Game Detail — native grid, search, and integrated game launcher sidebar',
 			},
 			{
-				src: '/images/pixelnow/pixelnow-detail.jpg',
-				alt: 'PixelNOW game detail with store picker and Play button',
-				caption: 'Game detail — store ownership, launch, and library actions',
-			},
-			{
-				src: '/images/pixelnow/pixelnow-stream.jpg',
-				alt: 'PixelNOW streaming session with latency and FPS overlay',
-				caption: 'Native stream — WebRTC and NVST playback with live diagnostics',
-			},
-			{
-				src: '/images/pixelnow/pixelnow-settings.jpg',
-				alt: 'PixelNOW settings showing multi-account NVIDIA login',
-				caption: 'Settings — multi-account login and stream preferences',
+				src: '/images/pixelnow/pixelnow-library.png',
+				alt: 'PixelNOW library and player stats view showing game rails and detailed session tracking',
+				caption: 'Library & Player Stats — game rails, active playtime tracking, and session diagnostics',
 			},
 		],
 	},
