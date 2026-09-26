@@ -11,6 +11,7 @@ const publicPages = [
 	'/projects/pixelnow-mac/',
 	'/blog/',
 	'/contact/',
+	'/privacy/',
 ];
 
 const escapeXml = (value: string): string =>

@@ -1,0 +1,84 @@
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Privacy Policy — Interlaced Pixel" description="Learn what information Interlaced Pixel receives through its website and PixelNOW, why it is used, and the choices available to you.">
+	<header class="page-hero">
+		<div class="container narrow reveal">
+			<p class="kicker"><span></span> Privacy</p>
+			<h1>Privacy<br><em>policy.</em></h1>
+			<p>This policy explains how Interlaced Pixel handles information when you visit our website, contact us, or use PixelNOW.</p>
+		</div>
+	</header>
+
+	<section class="section privacy-section">
+		<article class="container privacy-copy">
+			<p class="privacy-updated">Last updated September 25, 2026</p>
+			<p>Interlaced Pixel (“we,” “us,” or “our”) is an independent software business based in Baton Rouge, Louisiana. We use information to operate and protect our services, respond to you, and improve our products. We do not sell personal information or share it with third parties for their own advertising.</p>
+
+			<h2>Information we receive</h2>
+			<ul>
+				<li><strong>Messages you send us.</strong> If you use our contact form, we receive your name, email address, project type, and any timeline, budget, or message you choose to provide. The form is processed by <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree</a> and delivered to us.</li>
+				<li><strong>Basic website requests.</strong> When your browser loads this site, our hosting provider, GitHub Pages, and services used to deliver page assets may receive technical request information such as your IP address, browser, and requested resource. The site loads typefaces from Google Fonts; Google may receive information associated with those font requests. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google’s Privacy Policy</a> and <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub’s Privacy Statement</a>.</li>
+				<li><strong>Theme preference.</strong> The website saves your light or dark theme choice in your browser’s local storage. This preference stays in your browser and is not sent to us.</li>
+				<li><strong>PixelNOW information.</strong> PixelNOW uses NVIDIA OAuth and connects to NVIDIA GeForce NOW to provide sign-in and streaming features. NVIDIA and, where applicable, GeForce NOW service partners handle information under their own policies. PixelNOW keeps account state and recordings on your Mac. If you choose to send us feedback or diagnostic information, we may receive the information you include and related technical details.</li>
+			</ul>
+
+			<h2>How we use information</h2>
+			<p>We use contact details to answer your inquiry and provide requested support. We may use feedback and diagnostic information you choose to send, along with relevant product usage information, to maintain, troubleshoot, and improve our software. We use technical request information to deliver and secure the website. We do not operate website advertising or cross-site behavioral advertising.</p>
+
+			<h2>When information is processed by others</h2>
+			<p>We use service providers to host the website, deliver fonts, and process contact form submissions. Those providers receive information needed to perform those services and process it under their own terms and privacy practices. When you use PixelNOW’s NVIDIA sign-in or GeForce NOW features, information is exchanged directly with NVIDIA or its service partners so those features can work. We do not sell personal information or disclose it to data brokers or advertisers. We may also disclose information if required by law or to protect people, rights, and the security of our services.</p>
+
+			<h2>Cookies and local storage</h2>
+			<p>We do not use cookies for analytics or advertising. This website uses browser local storage for your theme preference. Third-party services you choose to use may apply their own cookies or similar technologies under their own policies.</p>
+
+			<h2>Retention and security</h2>
+			<p>We keep messages and information you send for as long as reasonably needed to respond, provide support, improve our products, maintain business records, and meet legal obligations. Information held by a service provider is also subject to that provider’s retention practices. We use reasonable measures to protect information, but no internet transmission or storage system can be guaranteed completely secure.</p>
+
+			<h2>Your choices and requests</h2>
+			<p>You can choose not to submit the contact form or optional feedback. You can clear the website’s saved theme preference through your browser’s site data settings. Depending on where you live, you may have rights to request access to, correction of, or deletion of personal information. To ask a question or make a request, email <a href="mailto:support@interlacedpixel.com">support@interlacedpixel.com</a>. We may need to verify your request before acting on it.</p>
+
+			<h2>Children</h2>
+			<p>Our website and software are not directed to children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child has sent us personal information, contact us and we will take appropriate steps to address it.</p>
+
+			<h2>Changes to this policy</h2>
+			<p>We may update this policy as our website or products change. We will post the current version on this page and revise the “Last updated” date above.</p>
+
+			<h2>Contact</h2>
+			<p>Questions or privacy requests can be sent to <a href="mailto:support@interlacedpixel.com">support@interlacedpixel.com</a>.</p>
+		</article>
+	</section>
+</Layout>
+
+<style>
+	.privacy-copy {
+		max-width: 800px;
+		color: var(--ink-soft);
+	}
+
+	.privacy-copy h2 {
+		margin: 2.5rem 0 .65rem;
+		color: var(--ink);
+		font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+		letter-spacing: -.035em;
+	}
+
+	.privacy-copy p,
+	.privacy-copy li {
+		line-height: 1.8;
+	}
+
+	.privacy-copy li + li {
+		margin-top: .8rem;
+	}
+
+	.privacy-copy a {
+		color: var(--cyan);
+		text-underline-offset: .2em;
+	}
+
+	.privacy-updated {
+		font-family: "DM Mono", monospace;
+		font-size: .85rem;
+	}
+</style>
