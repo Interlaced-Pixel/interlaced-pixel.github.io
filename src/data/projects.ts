@@ -17,8 +17,6 @@ export interface Project {
 	action: string;
 	accent: 'cyan' | 'amber' | 'violet';
 	icon: string;
-	featured?: boolean;
-	image?: string;
 	logo?: string;
 	downloadHref?: string;
 	repoHref?: string;
@@ -42,13 +40,11 @@ export const projects: Project[] = [
 			'Settings for account, display, bitrate, server location, upscaling, and network QoS',
 		],
 		tags: ['Swift', 'macOS', 'WebRTC', 'GeForce NOW'],
-		status: 'Featured project',
+		status: 'Available · macOS',
 		href: '/projects/pixelnow-mac/',
 		action: 'View the project',
 		accent: 'cyan',
 		icon: 'PN',
-		featured: true,
-		image: '/images/pixelnow/pixelnow-catalog.jpg',
 		logo: '/images/pixelnow/icon.png',
 		downloadHref: 'https://github.com/Interlaced-Pixel/PixelNOW-Mac/releases/latest',
 		repoHref: 'https://github.com/Interlaced-Pixel/PixelNOW-Mac',
@@ -102,6 +98,3 @@ export const projects: Project[] = [
 		icon: 'HC',
 	},
 ];
-
-export const featuredProject = projects.find((project) => project.featured) ?? projects[0];
-export const supportingProjects = projects.filter((project) => !project.featured);

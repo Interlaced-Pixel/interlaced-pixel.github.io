@@ -1,8 +1,7 @@
 ---
-import FeaturedProject from '../components/FeaturedProject.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Layout from '../layouts/Layout.astro';
-import { featuredProject, supportingProjects } from '../data/projects';
+import { projects } from '../data/projects';
 import { getCollection } from 'astro:content';
 
 const latestPosts = (await getCollection('blog'))
@@ -10,70 +9,101 @@ const latestPosts = (await getCollection('blog'))
 	.slice(0, 2);
 ---
 
-<Layout title="Interlaced Pixel — Lean tools. Clear results." description="Open-source networking tools and developer extensions built for performance, portability, and clarity.">
+<Layout title="Custom Software Development — Interlaced Pixel" description="Custom software development for complex, real-world problems. Applications, systems software, and developer tools built with care.">
 	<section class="home-hero">
 		<div class="hero-grid" aria-hidden="true"></div>
 		<div class="container hero-layout">
 			<div class="hero-copy reveal">
 				<p class="kicker"><span></span> Independent software studio</p>
-				<h1>Small tools.<br><em>Serious utility.</em></h1>
-				<p class="hero-lede">We design lean, dependable software for the systems that connect us—from network infrastructure to the editor you use every day.</p>
+				<h1>Custom software<br><em>built to work.</em></h1>
+				<p class="hero-lede">We design and build dependable software for teams with demanding technical problems—from polished applications to systems and developer tools.</p>
 				<div class="button-row">
-					<a href="/projects" class="button primary">Explore the work <span aria-hidden="true">→</span></a>
-					<a href="https://github.com/Interlaced-Pixel" class="button secondary" target="_blank" rel="noopener">Follow on GitHub ↗</a>
+					<a href="/contact" class="button primary">Discuss a project <span aria-hidden="true">→</span></a>
+					<a href="/services" class="button secondary">Explore services</a>
 				</div>
 			</div>
-			<div class="hero-terminal reveal" aria-label="Interlaced Pixel principles">
-				<div class="terminal-bar">
-					<span></span><span></span><span></span>
-					<code>principles.txt</code>
-				</div>
-				<div class="terminal-body">
-					<p><span>01</span> Performance without complexity</p>
-					<p><span>02</span> Portable by default</p>
-					<p><span>03</span> Useful on day one</p>
-					<p><span>04</span> Open to inspection</p>
-				</div>
-				<div class="signal-orbit"><i></i><i></i><i></i></div>
-			</div>
+			<aside class="capability-panel reveal" aria-label="Software development capabilities">
+				<p class="panel-label">Software, from problem to delivery</p>
+				<ul>
+					<li><span>01</span><div><strong>Applications</strong><small>Useful interfaces and product features</small></div></li>
+					<li><span>02</span><div><strong>Systems software</strong><small>Networking, performance, reliability</small></div></li>
+					<li><span>03</span><div><strong>Developer tools</strong><small>Focused tools that fit your workflow</small></div></li>
+				</ul>
+				<a class="panel-link" href="/services">See how we can help <span aria-hidden="true">↗</span></a>
+			</aside>
 		</div>
-		<div class="hero-strip" aria-label="Focus areas">
+		<div class="hero-strip" aria-label="Areas of practice">
 			<div class="container">
-				<span>Network infrastructure</span>
-				<span>C & C++</span>
-				<span>Developer experience</span>
-				<span>Open source</span>
+				<span>Product engineering</span>
+				<span>Systems & networking</span>
+				<span>Developer tools</span>
+				<span>Technical discovery</span>
 			</div>
 		</div>
 	</section>
 
-	<section class="section">
+	<section class="section services-preview">
+		<div class="container">
+			<div class="section-heading reveal">
+				<div>
+					<p class="kicker">What we do</p>
+					<h2>Software shaped around<br>the problem.</h2>
+				</div>
+				<a href="/services" class="text-link">Explore services <span aria-hidden="true">→</span></a>
+			</div>
+			<div class="service-grid">
+				<a class="service-card reveal" href="/services#application-development">
+					<span class="service-index">01</span><h3>Application development</h3>
+					<p>Turn a product idea or an awkward workflow into clear, dependable software people can use.</p>
+					<span class="service-arrow" aria-hidden="true">↗</span>
+				</a>
+				<a class="service-card reveal" href="/services#systems-software">
+					<span class="service-index">02</span><h3>Systems & networking</h3>
+					<p>Build the infrastructure and low-level software where performance and predictable behavior matter.</p>
+					<span class="service-arrow" aria-hidden="true">↗</span>
+				</a>
+				<a class="service-card reveal" href="/services#developer-tools">
+					<span class="service-index">03</span><h3>Developer tools</h3>
+					<p>Remove friction from engineering work with focused extensions, utilities, and internal tools.</p>
+					<span class="service-arrow" aria-hidden="true">↗</span>
+				</a>
+				<a class="service-card reveal" href="/services#technical-discovery">
+					<span class="service-index">04</span><h3>Technical discovery</h3>
+					<p>Clarify constraints, test a direction, and turn an uncertain idea into a practical next step.</p>
+					<span class="service-arrow" aria-hidden="true">↗</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section work-preview section-soft">
 		<div class="container">
 			<div class="section-heading reveal">
 				<div>
 					<p class="kicker">Selected work</p>
-					<h2>Tools with a clear job to do.</h2>
+					<h2>Different problems.<br>Thoughtful software.</h2>
 				</div>
-				<a href="/projects" class="text-link">View all projects <span aria-hidden="true">→</span></a>
+				<a href="/projects" class="text-link">View all work <span aria-hidden="true">→</span></a>
 			</div>
-			<FeaturedProject project={featuredProject} />
-			<div class="project-grid supporting-grid">
-				{supportingProjects.map((project) => <ProjectCard project={project} />)}
+			<div class="project-grid">
+				{projects.map((project) => <ProjectCard project={project} />)}
 			</div>
+			<p class="work-note">These examples include independent products and open-source work.</p>
 		</div>
 	</section>
 
 	<section class="section section-contrast">
 		<div class="container approach-grid">
 			<div class="approach-intro reveal">
-				<p class="kicker light">How we build</p>
-				<h2>Less machinery.<br>More momentum.</h2>
-				<p>Every project starts with a real constraint and ends with something you can use, understand, and trust.</p>
+				<p class="kicker light">A clear way forward</p>
+				<h2>Thoughtful from<br>first question to launch.</h2>
+				<p>Good software starts with understanding the real constraint. From there, we keep the plan visible and the work moving.</p>
+				<a href="/about" class="text-link light-link">How we work <span aria-hidden="true">→</span></a>
 			</div>
 			<ol class="principles-list">
-				<li class="reveal"><span>01</span><div><h3>Focused scope</h3><p>One product, one clear purpose. Features earn their place.</p></div></li>
-				<li class="reveal"><span>02</span><div><h3>Systems-minded</h3><p>Performance, portability, and failure modes are designed in early.</p></div></li>
-				<li class="reveal"><span>03</span><div><h3>Open work</h3><p>Readable source and useful documentation keep the work accessible.</p></div></li>
+				<li class="reveal"><span>01</span><div><h3>Understand the problem</h3><p>Agree on the user, the constraints, and what a useful outcome looks like.</p></div></li>
+				<li class="reveal"><span>02</span><div><h3>Choose a practical plan</h3><p>Set the scope, technical approach, and checkpoints before complexity grows.</p></div></li>
+				<li class="reveal"><span>03</span><div><h3>Build, refine, hand over</h3><p>Deliver working software with clear communication and useful documentation.</p></div></li>
 			</ol>
 		</div>
 	</section>
@@ -90,7 +120,7 @@ const latestPosts = (await getCollection('blog'))
 			<div class="article-list">
 				{latestPosts.map((post, index) => (
 					<a class="article-row reveal" href={`/blog/${post.slug}/`}>
-						<span class="article-index">0{index + 1}</span>
+						<span class="article-index">{String(index + 1).padStart(2, '0')}</span>
 						<div>
 							<p>{Array.isArray(post.data.categories) ? post.data.categories[0] : post.data.categories ?? 'Engineering'} · {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
 							<h3>{post.data.title}</h3>
@@ -104,9 +134,9 @@ const latestPosts = (await getCollection('blog'))
 
 	<section class="cta-band">
 		<div class="container reveal">
-			<p class="kicker light">Have something in mind?</p>
-			<h2>Let's make the useful thing.</h2>
-			<a href="/contact" class="button light-button">Start a conversation <span aria-hidden="true">→</span></a>
+			<p class="kicker">Have a software problem to solve?</p>
+			<h2>Let’s figure out the right next step.</h2>
+			<a href="/contact" class="button light-button">Tell us about it <span aria-hidden="true">→</span></a>
 		</div>
 	</section>
 </Layout>

@@ -1,24 +1,26 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { featuredProject as project } from '../../data/projects';
+import { projects } from '../../data/projects';
 
-if (!project.screenshots) {
-	throw new Error('PixelNOW featured project is missing screenshots.');
+const project = projects.find((item) => item.slug === 'pixelnow-mac');
+
+if (!project?.screenshots) {
+	throw new Error('PixelNOW project data or screenshots are missing.');
 }
 ---
 
 <Layout title="PixelNOW — Interlaced Pixel" description="Native Apple Silicon GeForce NOW client with catalog browsing, multi-account login, WebRTC and NVST streaming, and local recordings.">
 	<header class="page-hero project-detail-hero">
 		<div class="container narrow reveal">
-			<p class="kicker"><span></span> Featured project</p>
+			<p class="kicker"><span></span> Independent product</p>
 			<h1>PixelNOW<br><em>for Mac.</em></h1>
 			<p>{project.longDescription}</p>
 			<div class="button-row">
 				{project.downloadHref && (
-					<a href={project.downloadHref} class="button primary" target="_blank" rel="noopener">Download latest ↗</a>
+					<a href={project.downloadHref} class="button primary" target="_blank" rel="noopener noreferrer">Download latest ↗</a>
 				)}
 				{project.repoHref && (
-					<a href={project.repoHref} class="button secondary" target="_blank" rel="noopener">View source ↗</a>
+					<a href={project.repoHref} class="button secondary" target="_blank" rel="noopener noreferrer">View source ↗</a>
 				)}
 			</div>
 		</div>
@@ -93,9 +95,9 @@ if (!project.screenshots) {
 			<h2>PixelNOW for Mac is live.</h2>
 			<div class="button-row" style="justify-content:center;">
 				{project.downloadHref && (
-					<a href={project.downloadHref} class="button light-button" target="_blank" rel="noopener">Latest release ↗</a>
+					<a href={project.downloadHref} class="button light-button" target="_blank" rel="noopener noreferrer">Latest release ↗</a>
 				)}
-				<a href="/projects" class="button secondary">All projects</a>
+				<a href="/projects" class="button secondary">Selected work</a>
 			</div>
 		</div>
 	</section>

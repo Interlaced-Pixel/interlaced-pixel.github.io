@@ -7,7 +7,7 @@ interface Props {
 	description?: string;
 }
 
-const { title, description = 'Small, dependable developer tools for the systems that connect us.' } = Astro.props;
+const { title, description = 'Custom software development for applications, systems, and developer tools.' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://interlacedpixel.com');
 ---
 
@@ -36,9 +36,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://interlac
     <meta name="twitter:title" content={title}>
     <meta name="twitter:description" content={description}>
     <script is:inline>
-        const savedTheme = localStorage.getItem('theme');
+        let savedTheme = null;
+        try {
+            savedTheme = window.localStorage.getItem('theme');
+        } catch {
+            savedTheme = null;
+        }
         const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        document.documentElement.dataset.theme = savedTheme || systemTheme;
+        document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : systemTheme;
     </script>
 </head>
 <body>

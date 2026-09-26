@@ -1,35 +1,38 @@
 ---
-import FeaturedProject from '../components/FeaturedProject.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Layout from '../layouts/Layout.astro';
-import { featuredProject, supportingProjects } from '../data/projects';
+import { projects } from '../data/projects';
 ---
 
-<Layout title="Projects — Interlaced Pixel" description="Featured native apps and focused open-source tools for networking, systems work, and better developer workflows.">
+<Layout title="Selected Work — Interlaced Pixel" description="Selected software projects spanning native applications, systems and networking software, and developer tools.">
 	<header class="page-hero">
 		<div class="container narrow reveal">
-			<p class="kicker"><span></span> Open-source work</p>
-			<h1>Built small.<br><em>Made to matter.</em></h1>
-			<p>Each project solves a specific problem with as little friction as possible. No sprawling platforms—just dependable tools you can understand and put to work.</p>
+			<p class="kicker"><span></span> Selected work</p>
+			<h1>Useful software,<br><em>built with care.</em></h1>
+			<p>A selection of independent products and open-source tools. Each reflects a different kind of engineering problem and a practical approach to solving it.</p>
+			<div class="button-row">
+				<a href="/services" class="button primary">Explore our services <span aria-hidden="true">→</span></a>
+				<a href="/contact" class="button secondary">Discuss a project</a>
+			</div>
 		</div>
 	</header>
 
 	<section class="section projects-page">
 		<div class="container">
-			<FeaturedProject project={featuredProject} />
-			<div class="project-grid supporting-grid">
-				{supportingProjects.map((project) => <ProjectCard project={project} />)}
+			<div class="project-grid work-grid">
+				{projects.map((project) => <ProjectCard project={project} />)}
 			</div>
+			<p class="work-note">The projects shown here are independent products and open-source work, presented as examples of our engineering practice.</p>
 		</div>
 	</section>
 
 	<section class="project-note">
 		<div class="container two-column reveal">
-			<p class="kicker light">The standard</p>
+			<p class="kicker light">Have a challenge in mind?</p>
 			<div>
-				<h2>Good tools disappear into the work.</h2>
-				<p>We prioritize fast setup, predictable behavior, readable internals, and documentation that gets to the point.</p>
-				<a href="https://github.com/Interlaced-Pixel" target="_blank" rel="noopener" class="text-link light-link">Browse every repository ↗</a>
+				<h2>Let’s focus on what your software needs to do.</h2>
+				<p>Tell us what is getting in the way, what you want to make possible, and any constraints you already know about.</p>
+				<a href="/contact" class="text-link light-link">Start a conversation <span aria-hidden="true">→</span></a>
 			</div>
 		</div>
 	</section>

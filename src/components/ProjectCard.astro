@@ -9,7 +9,7 @@ const { project } = Astro.props;
 const isExternal = project.href.startsWith('http');
 ---
 
-<article class:list={['project-card', `accent-${project.accent}`, { featured: project.featured }]}>
+<article class:list={['project-card', `accent-${project.accent}`]}>
 	<div class="project-card-top">
 		{project.logo ? (
 			<img class="project-logo" src={project.logo} alt="" width="46" height="46" />
@@ -24,7 +24,7 @@ const isExternal = project.href.startsWith('http');
 	<ul class="tag-list" aria-label="Technologies">
 		{project.tags.map((tag) => <li>{tag}</li>)}
 	</ul>
-	<a class="text-link" href={project.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener' : undefined}>
+	<a class="text-link" href={project.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
 		{project.action}
 		<span aria-hidden="true">{isExternal ? '↗' : '→'}</span>
 	</a>

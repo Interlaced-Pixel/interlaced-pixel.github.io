@@ -2,55 +2,82 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Contact — Interlaced Pixel" description="Talk with Interlaced Pixel about a project, a contribution, or a technical question.">
+<Layout title="Contact — Interlaced Pixel" description="Tell Interlaced Pixel about the software problem you need to solve. We build applications, systems software, and developer tools.">
 	<header class="page-hero contact-page-hero">
 		<div class="container narrow reveal">
 			<p class="kicker"><span></span> Start a conversation</p>
-			<h1>Let's build something<br><em>worth using.</em></h1>
-			<p>Have a project, a contribution, or a good technical question? Send a note. We usually reply within two business days.</p>
+			<h1>What are you<br><em>trying to solve?</em></h1>
+			<p>Share a little about the software you need, the people it is for, and any constraints you already know. We usually reply within two business days.</p>
 		</div>
 	</header>
 
 	<section class="section contact-section">
 		<div class="container contact-layout">
 			<aside class="contact-aside reveal">
-				<p class="kicker">Direct line</p>
-				<a class="contact-email" href="mailto:support@interlacedpixel.com">support@interlacedpixel.com <span>↗</span></a>
+				<p class="kicker">Direct contact</p>
+				<a class="contact-email" href="mailto:support@interlacedpixel.com">support@interlacedpixel.com <span aria-hidden="true">↗</span></a>
 				<div class="contact-details">
 					<div><span>Based in</span><strong>Baton Rouge, Louisiana</strong></div>
-					<div><span>Interested in</span><strong>Networking, systems, developer tools</strong></div>
-					<div><span>Open source</span><a href="https://github.com/Interlaced-Pixel" target="_blank" rel="noopener">GitHub ↗</a></div>
+					<div><span>Good fit for</span><strong>Applications, systems software, developer tools</strong></div>
+					<div><span>Response time</span><strong>Usually within two business days</strong></div>
+					<div><span>Open-source work</span><a href="https://github.com/Interlaced-Pixel" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
 				</div>
 			</aside>
 
-			<form id="contact-form" class="contact-form reveal" action="https://formspree.io/f/mpqjzbbj" method="POST">
-				<input type="hidden" name="_subject" value="New message from interlacedpixel.com">
-				<input type="hidden" name="_next" value="https://interlacedpixel.com/thank-you">
+			<form id="contact-form" class="contact-form reveal" action="https://formspree.io/f/xjykezke" method="POST">
+				<input type="hidden" name="_subject" value="Software project inquiry from interlacedpixel.com">
+				<p class="form-intro">A few details will help us understand where to start.</p>
 				<div class="form-row">
 					<label>
-						<span>Name</span>
+						<span>Name <b aria-hidden="true">*</b></span>
 						<input name="name" type="text" autocomplete="name" placeholder="Your name" required>
 					</label>
 					<label>
-						<span>Email</span>
+						<span>Email <b aria-hidden="true">*</b></span>
 						<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
 					</label>
 				</div>
 				<label>
-					<span>What would you like to discuss?</span>
-					<select name="subject" required>
-						<option value="" disabled selected>Select a topic</option>
-						<option>Project inquiry</option>
-						<option>Open-source contribution</option>
-						<option>Technical question</option>
-						<option>Something else</option>
+					<span>What kind of help do you need? <b aria-hidden="true">*</b></span>
+					<select name="project_type" required>
+						<option value="" disabled selected>Select the closest fit</option>
+						<option>Application development</option>
+						<option>Systems or networking software</option>
+						<option>Developer or internal tools</option>
+						<option>Technical discovery or prototype</option>
+						<option>Not sure yet</option>
 					</select>
 				</label>
+				<div class="form-row">
+					<label>
+						<span>When would you like to start? <small>Optional</small></span>
+						<select name="timeline">
+							<option value="" selected>No set timeline</option>
+							<option>As soon as possible</option>
+							<option>Within 1–3 months</option>
+							<option>In 3+ months</option>
+							<option>Just exploring</option>
+						</select>
+					</label>
+					<label>
+						<span>Budget range <small>Optional</small></span>
+						<select name="budget_range">
+							<option value="" selected>Not decided</option>
+							<option>Under $5,000</option>
+							<option>$5,000–$15,000</option>
+							<option>$15,000–$50,000</option>
+							<option>$50,000+</option>
+							<option>Prefer to discuss</option>
+						</select>
+					</label>
+				</div>
 				<label>
-					<span>Message</span>
-					<textarea name="message" rows="7" placeholder="A little context goes a long way…" required></textarea>
+					<span>Tell us a little about the problem <b aria-hidden="true">*</b></span>
+					<textarea name="message" rows="6" placeholder="What are you trying to make possible? Who will use it? What constraints should we know about?" required></textarea>
 				</label>
-				<button type="submit" class="button primary">Send message <span aria-hidden="true">→</span></button>
+				<p class="form-note"><span aria-hidden="true">*</span> Required fields. Project details, timeline, and budget are only as specific as you want to make them.</p>
+				<p class="form-status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+				<button type="submit" class="button primary">Send project inquiry <span aria-hidden="true">→</span></button>
 			</form>
 		</div>
 	</section>
