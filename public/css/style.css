@@ -1774,7 +1774,7 @@ h1 em, h2 em {
 
 .work-preview .project-grid,
 .work-grid {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .work-preview .project-card,
@@ -2011,6 +2011,11 @@ h1 em, h2 em {
 	.service-detail ul {
 		grid-template-columns: 1fr;
 		gap: 10px;
+	}
+
+	.work-preview .project-grid,
+	.work-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.work-preview .project-card:last-child,

@@ -74,18 +74,6 @@ export const projects: Project[] = [
 		icon: 'SP',
 	},
 	{
-		name: 'coverage-status',
-		eyebrow: 'Developer experience',
-		description:
-			'A focused VS Code extension that surfaces LCOV coverage directly in the status bar while you work.',
-		tags: ['TypeScript', 'VS Code', 'LCOV'],
-		status: 'Published extension',
-		href: 'https://marketplace.visualstudio.com/items?itemName=InterlacedPixel.code-coverage-status',
-		action: 'Open in Marketplace',
-		accent: 'amber',
-		icon: 'CS',
-	},
-	{
 		name: 'http-c',
 		eyebrow: 'Networking library',
 		description:

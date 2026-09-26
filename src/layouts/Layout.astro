@@ -5,9 +5,10 @@ import Footer from '../components/Footer.astro';
 interface Props {
 	title: string;
 	description?: string;
+	type?: 'website' | 'article';
 }
 
-const { title, description = 'Custom software development for applications, systems, and developer tools.' } = Astro.props;
+const { title, description = 'Custom software development for applications, systems, and developer tools.', type = 'website' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://interlacedpixel.com');
 ---
 
@@ -29,7 +30,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://interlac
     <meta name="theme-color" content="#07111f">
     <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>
-    <meta property="og:type" content="website">
+    <meta property="og:type" content={type}>
     <meta property="og:url" content={canonicalURL}>
     <meta property="og:site_name" content="Interlaced Pixel">
     <meta name="twitter:card" content="summary">

@@ -14,7 +14,7 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout title={post.data.title} description={post.data.description} type="article">
 	<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 		<header class="post-header reveal">
 			<a href="/blog" class="back-link">← Back to journal</a>
