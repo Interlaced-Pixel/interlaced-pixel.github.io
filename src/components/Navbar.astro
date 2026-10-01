@@ -12,11 +12,10 @@ const links = [
 	<nav class="nav-shell" aria-label="Primary navigation">
 		<a href="/" class="brand" aria-label="Interlaced Pixel home">
 			<svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true">
-				<path d="M5 11h10l6 14h10M5 25h10l6-14h10"></path>
-				<circle cx="5" cy="11" r="2"></circle>
-				<circle cx="31" cy="11" r="2"></circle>
-				<circle cx="5" cy="25" r="2"></circle>
-				<circle cx="31" cy="25" r="2"></circle>
+				<rect class="mark-tile" x="1" y="1" width="34" height="34" rx="8"></rect>
+				<path class="mark-thread mark-thread-light" d="M9 11h6v6h6v6h6"></path>
+				<path class="mark-thread mark-thread-accent" d="M27 11h-6v6h-6v6H9"></path>
+				<rect class="mark-pixel" x="15" y="15" width="6" height="6" rx="1"></rect>
 			</svg>
 			<span>Interlaced <strong>Pixel</strong></span>
 		</a>

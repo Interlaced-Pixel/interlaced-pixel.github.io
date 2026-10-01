@@ -146,9 +146,30 @@ button, a {
 .brand-mark {
 	width: 34px;
 	height: 34px;
-	fill: var(--surface);
-	stroke: var(--cyan);
-	stroke-width: 1.8;
+	flex: none;
+}
+
+.brand-mark .mark-tile {
+	fill: #007b76;
+}
+
+.brand-mark .mark-thread {
+	fill: none;
+	stroke-width: 3;
+	stroke-linecap: square;
+	stroke-linejoin: miter;
+}
+
+.brand-mark .mark-thread-light {
+	stroke: #fffdf7;
+}
+
+.brand-mark .mark-thread-accent {
+	stroke: #a9f2eb;
+}
+
+.brand-mark .mark-pixel {
+	fill: var(--amber);
 }
 
 .nav-links {
