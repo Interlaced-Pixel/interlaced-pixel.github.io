@@ -1,7 +1,6 @@
 ---
-import ProjectCard from '../components/ProjectCard.astro';
+import ProjectShowcase from '../components/ProjectShowcase.astro';
 import Layout from '../layouts/Layout.astro';
-import { projects } from '../data/projects';
 ---
 
 <Layout title="Selected Work — Interlaced Pixel" description="Selected software projects spanning native applications, systems and networking software, and developer tools.">
@@ -19,9 +18,7 @@ import { projects } from '../data/projects';
 
 	<section class="section projects-page">
 		<div class="container">
-			<div class="project-grid work-grid">
-				{projects.map((project) => <ProjectCard project={project} />)}
-			</div>
+			<ProjectShowcase />
 			<p class="work-note">The projects shown here are independent products and open-source work, presented as examples of our engineering practice.</p>
 		</div>
 	</section>

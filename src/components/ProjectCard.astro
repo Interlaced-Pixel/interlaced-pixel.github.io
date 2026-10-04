@@ -7,9 +7,10 @@ interface Props {
 
 const { project } = Astro.props;
 const isExternal = project.href.startsWith('http');
+const preview = project.featured ? project.screenshots?.[0] : undefined;
 ---
 
-<article class:list={['project-card', `accent-${project.accent}`]}>
+<article class:list={['project-card', `accent-${project.accent}`, { 'featured-product': project.featured }]}>
 	<div class="project-card-top">
 		{project.logo ? (
 			<img class="project-logo" src={project.logo} alt="" width="46" height="46" />
@@ -21,6 +22,11 @@ const isExternal = project.href.startsWith('http');
 	<p class="eyebrow">{project.eyebrow}</p>
 	<h3>{project.name}</h3>
 	<p class="project-description">{project.description}</p>
+	{preview && (
+		<div class="project-preview">
+			<img src={preview.src} alt={preview.alt} width={preview.width} height={preview.height} loading="lazy" decoding="async" />
+		</div>
+	)}
 	<ul class="tag-list" aria-label="Technologies">
 		{project.tags.map((tag) => <li>{tag}</li>)}
 	</ul>

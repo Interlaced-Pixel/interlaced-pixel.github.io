@@ -1,7 +1,6 @@
 ---
-import ProjectCard from '../components/ProjectCard.astro';
+import ProjectShowcase from '../components/ProjectShowcase.astro';
 import Layout from '../layouts/Layout.astro';
-import { projects } from '../data/projects';
 import { getCollection } from 'astro:content';
 
 const latestPosts = (await getCollection('blog'))
@@ -85,9 +84,7 @@ const latestPosts = (await getCollection('blog'))
 				</div>
 				<a href="/projects" class="text-link">View all work <span aria-hidden="true">→</span></a>
 			</div>
-			<div class="project-grid">
-				{projects.map((project) => <ProjectCard project={project} />)}
-			</div>
+			<ProjectShowcase />
 			<p class="work-note">These examples include independent products and open-source work.</p>
 		</div>
 	</section>

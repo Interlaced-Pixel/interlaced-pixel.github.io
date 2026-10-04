@@ -1,0 +1,18 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/projects';
+
+const featuredProjects = projects.filter((project) => project.featured);
+const otherProjects = projects.filter((project) => !project.featured);
+---
+
+<div class="project-showcase">
+	<h2 class="project-group-title">Featured products</h2>
+	<div class="project-grid featured-products">
+		{featuredProjects.map((project) => <ProjectCard project={project} />)}
+	</div>
+	<h2 class="project-group-title tools-heading">Developer tools</h2>
+	<div class="project-grid tools-grid">
+		{otherProjects.map((project) => <ProjectCard project={project} />)}
+	</div>
+</div>

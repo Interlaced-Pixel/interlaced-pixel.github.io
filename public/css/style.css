@@ -1793,21 +1793,67 @@ h1 em, h2 em {
 	font-size: 12px;
 }
 
-.work-preview .project-grid,
-.work-grid {
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+.project-showcase .project-grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.work-preview .project-card,
-.work-grid .project-card {
-	min-height: 360px;
+.project-group-title {
+	margin: 0 0 20px;
+	color: var(--ink-soft);
+	font-family: "DM Mono", monospace;
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+}
+
+.tools-heading {
+	margin-top: 48px;
+}
+
+.featured-product h3 {
+	font-size: clamp(30px, 3vw, 38px);
+}
+
+.featured-product .project-card-top {
+	margin-bottom: 28px;
+}
+
+.featured-product .project-description {
+	min-height: 5.25em;
+}
+
+.project-preview {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 16 / 11;
+	margin-top: 28px;
+	padding: 16px;
+	border: 1px solid var(--line);
+	background: color-mix(in srgb, var(--cyan) 8%, var(--paper));
+}
+
+.accent-violet .project-preview {
+	background: color-mix(in srgb, var(--violet) 10%, var(--paper));
+}
+
+.project-preview img {
+	display: block;
+	width: 100%;
+	height: auto;
+	box-shadow: 0 8px 24px rgba(4, 15, 28, .12);
+}
+
+.project-showcase .tools-grid .project-card {
+	min-height: 320px;
 }
 
 .projects-page {
 	padding-top: 75px;
 }
 
-.work-grid .project-description {
+.project-showcase .project-description {
 	max-width: 48ch;
 }
 
@@ -2034,13 +2080,7 @@ h1 em, h2 em {
 		gap: 10px;
 	}
 
-	.work-preview .project-grid,
-	.work-grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-
-	.work-preview .project-card:last-child,
-	.work-grid .project-card:last-child {
+	.project-showcase .project-card:last-child {
 		grid-column: auto;
 	}
 }
@@ -2052,8 +2092,7 @@ h1 em, h2 em {
 	}
 
 	.service-grid,
-	.work-preview .project-grid,
-	.work-grid,
+	.project-showcase .project-grid,
 	.engagement-grid,
 	.engagement-options {
 		grid-template-columns: 1fr;
@@ -2063,9 +2102,17 @@ h1 em, h2 em {
 		min-height: 215px;
 	}
 
-	.work-preview .project-card,
-	.work-grid .project-card {
+	.project-showcase .tools-grid .project-card,
+	.featured-product .project-description {
 		min-height: 0;
+	}
+
+	.featured-product .project-card-top {
+		flex-wrap: wrap;
+	}
+
+	.project-preview {
+		padding: 10px;
 	}
 
 	.service-detail {

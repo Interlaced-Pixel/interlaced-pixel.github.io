@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/projects';
+
+const project = projects.find((item) => item.slug === 'macpicard');
+
+if (!project?.screenshots?.length || !project.repoHref) {
+	throw new Error('MacPicard project data, screenshots, or repository link are missing.');
+}
+---
+
+<Layout title="MacPicard — Interlaced Pixel" description="A native macOS music library app for MusicBrainz matching, metadata and artwork editing, and file organization. Review changes before saving.">
+	<header class="page-hero project-detail-hero">
+		<div class="container narrow reveal">
+			<p class="kicker"><span></span> Independent product</p>
+			<h1>MacPicard<br><em>for Mac.</em></h1>
+			<p>{project.longDescription}</p>
+			<div class="button-row">
+				<a href={project.repoHref} class="button primary" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+			</div>
+		</div>
+	</header>
+
+	<section class="screenshot-stage">
+		<div class="container reveal">
+			<figure class="hero-shot">
+				<img src={project.screenshots[0].src} alt={project.screenshots[0].alt} width={project.screenshots[0].width} height={project.screenshots[0].height} />
+				<figcaption>{project.screenshots[0].caption}</figcaption>
+			</figure>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container detail-grid">
+			<div class="reveal">
+				<p class="kicker">What it is</p>
+				<h2>A calmer way to clean up your music library.</h2>
+				<p>MacPicard is a native macOS app for identifying, editing, and organizing music files with MusicBrainz. Review album and track matches, refine metadata and artwork, and preview file organization before saving changes.</p>
+			</div>
+			<ul class="spec-list reveal">
+				<li><span>Platform</span><strong>macOS 26+</strong></li>
+				<li><span>Status</span><strong>In development</strong></li>
+				<li><span>Stack</span><strong>Swift 6, SwiftUI</strong></li>
+				<li><span>Identification</span><strong>MusicBrainz</strong></li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="section section-contrast">
+		<div class="container">
+			<div class="section-heading reveal">
+				<div>
+					<p class="kicker light">Capabilities</p>
+					<h2>Give every track its place.</h2>
+				</div>
+			</div>
+			<ol class="capability-grid">
+				{project.highlights?.map((item, index) => (
+					<li class="reveal">
+						<span>{String(index + 1).padStart(2, '0')}</span>
+						<p>{item}</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container detail-grid">
+			<div class="reveal">
+				<p class="kicker">An explicit workflow</p>
+				<h2>Review. Stage. Save.</h2>
+				<p>Import music into a managed library while leaving the source files unchanged. Review proposed tags and artwork, stage your edits, and save when the result looks right. File organization previews source and destination paths and never overwrites existing destinations.</p>
+			</div>
+			<div class="reveal">
+				<p class="kicker">Supported formats</p>
+				<h2>Built around your collection.</h2>
+				<p>Work with MP3, FLAC, M4A/MP4, Ogg Vorbis, Ogg Opus, and WAV. Online identification requires an internet connection.</p>
+				<p class="independence-note">MacPicard is independent and is not affiliated with MusicBrainz or the Picard project.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="cta-band">
+		<div class="container reveal">
+			<p class="kicker">Follow the project</p>
+			<h2>MacPicard is taking shape.</h2>
+			<div class="button-row" style="justify-content:center;">
+				<a href={project.repoHref} class="button light-button" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+				<a href="/projects/" class="button secondary">Selected work</a>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.detail-grid .independence-note {
+		margin-top: 24px;
+		font-size: 14px;
+	}
+</style>
