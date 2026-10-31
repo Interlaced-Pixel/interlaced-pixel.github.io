@@ -28,6 +28,29 @@ export interface Project {
 
 export const projects: Project[] = [
 	{
+		name: 'Frame',
+		featured: true,
+		eyebrow: 'Local media library & player',
+		description:
+			'A private, local-first Mac app for organizing movie and series libraries, then playing them in the same window with no media server required.',
+		tags: ['macOS', 'SwiftUI', 'Media library', 'Video playback'],
+		status: 'Available · macOS',
+		href: '/frame/',
+		action: 'Explore Frame',
+		accent: 'violet',
+		icon: 'FR',
+		logo: '/frame/assets/frame-mark.webp',
+		screenshots: [
+			{
+				src: '/frame/assets/series-library.webp',
+				alt: 'Frame series library with poster artwork and playback controls',
+				caption: 'Local series library — artwork, episodes, and playback in one view',
+				width: 2048,
+				height: 1218,
+			},
+		],
+	},
+	{
 		slug: 'pixelnow-mac',
 		name: 'PixelNOW',
 		featured: true,

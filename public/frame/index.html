@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="Frame is a private, local-first movie and TV library manager with a full-featured macOS video player.">
+  <meta property="og:title" content="Frame — your library, ready to play">
+  <meta property="og:description" content="A native Mac media library manager and player. Your files stay yours.">
+  <meta property="og:image" content="assets/series-library.webp">
+  <title>Frame — your library, ready to play</title>
+  <link rel="icon" href="assets/frame-mark.webp" type="image/webp">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Frame home"><img src="assets/frame-mark.webp" alt=""><span>frame</span></a>
+    <nav aria-label="Main navigation"><a href="#features">Features</a><a href="#screenshots">See Frame</a><a href="#privacy">Privacy</a><a href="https://interlacedpixel.com">Interlaced Pixel</a></nav>
+    <a class="nav-download" href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/latest">Get Frame <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> A media library made for Mac</div>
+        <h1>Your library.<br><span>Ready to play.</span></h1>
+        <p>Bring movies and series together in one beautifully organized place. Find what you want, press play, and keep watching in Frame.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/latest/download/Frame.zip">Download for Mac <span>↓</span></a>
+          <a class="button secondary" href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/latest">Release notes <span>↗</span></a>
+        </div>
+        <div class="requirements"><span>macOS 14+</span><i></i><span>Apple silicon</span><i></i><span>Version <b id="version">1.0.0</b></span></div>
+        <p class="install-note">First launch: Control-click Frame and choose Open. Frame is not notarized.</p>
+      </div>
+      <a class="hero-shot" href="#screenshots" aria-label="See the Frame series library screenshot">
+        <div class="shot-window"><div class="shot-lights"><b></b><b></b><b></b></div><div class="shot-title">FRAME <span>LIBRARY</span></div><img src="assets/series-library.webp" alt="Frame’s series library with poster artwork and collection controls"></div>
+        <div class="shot-caption"><span class="caption-icon">▦</span><span><b>One home for every series</b><small>Artwork, episodes, and playback in one view</small></span><span class="caption-arrow">↗</span></div>
+      </a>
+      <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+    </section>
+
+    <section class="promise" id="features">
+      <div class="section-kicker">THE WHOLE EXPERIENCE</div>
+      <h2>Discover it. Organize it.<br><span>Watch it here.</span></h2>
+      <p class="section-intro">Frame brings a capable media manager and a native video player into the same app. Your collection stays on your Mac. Playback is always close at hand.</p>
+      <div class="feature-grid">
+        <article class="feature-card feature-play">
+          <div class="feature-head"><span class="feature-symbol">▶</span><span class="feature-label">PLAYBACK</span></div>
+          <h3>Press play.<br>Stay in Frame.</h3>
+          <p>Play movies and episodes in the main window, with full screen and native picture-in-picture. Audio, subtitles, playback speed, and display controls are right there when you need them.</p>
+          <div class="mini-player" aria-hidden="true"><div class="mini-art"></div><div class="mini-controls"><span>◀</span><span class="play-button">Ⅱ</span><span>▶</span><div class="mini-progress"><i></i></div></div><div class="mini-meta"><b>Now playing</b><span>in your library</span></div></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-head"><span class="feature-symbol cyan">▤</span><span class="feature-label">LIBRARY</span></div>
+          <h3>Made for the<br>way you collect.</h3>
+          <p>Scan local folders, match titles, choose artwork, manage episodes, and rename media to a clean, consistent format. Browse your way with posters or sortable lists.</p>
+          <div class="feature-bottom"><span>Movies</span><span>Series</span><span>Episode manager</span></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-head"><span class="feature-symbol violet">⌕</span><span class="feature-label">SEARCH & IMPORT</span></div>
+          <h3>From search<br>to your shelf.</h3>
+          <p>Search your configured indexers, filter releases, send a selection to Transmission, and follow progress as Frame imports completed files into the matching library.</p>
+          <div class="feature-bottom"><span>Release filters</span><span>Manual import</span></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-head"><span class="feature-symbol amber">◷</span><span class="feature-label">STAY IN SYNC</span></div>
+          <h3>Keep up with<br>what’s next.</h3>
+          <p>Review upcoming and recently aired episodes alongside recent additions. Refresh a library to reconcile its index with what is actually on disk.</p>
+          <div class="feature-bottom"><span>Airing calendar</span><span>Local refresh</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="screenshots" id="screenshots">
+      <div class="section-heading"><div><div class="section-kicker">A CLOSER LOOK</div><h2>Your media, <span>in its element.</span></h2></div><p>Purpose-built screens for the parts of your library you use every day.</p></div>
+      <div class="gallery">
+        <figure class="gallery-wide"><img src="assets/movie-library.webp" alt="Frame movie library showing real poster artwork"><figcaption><b>Movie night starts here</b><span>Poster browsing, playback progress, and a focused collection view</span></figcaption></figure>
+        <figure><img src="assets/calendar.webp" alt="Frame airing calendar with episode artwork"><figcaption><b>Your series calendar</b><span>Recently aired and upcoming episodes</span></figcaption></figure>
+        <figure><img src="assets/search.webp" alt="Frame search page for configured indexers"><figcaption><b>Search with context</b><span>Filter releases across configured indexers</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="local-first" id="privacy">
+      <div class="local-orbit"><div class="orbit-ring"></div><div class="orbit-core"><img src="assets/frame-mark.webp" alt=""></div><span class="orbit-node node-a">LOCAL FILES</span><span class="orbit-node node-b">YOUR MAC</span><span class="orbit-node node-c">YOUR CHOICE</span></div>
+      <div class="local-copy"><div class="section-kicker">LOCAL BY DESIGN</div><h2>Your library stays<br><span>your library.</span></h2><p>Frame reads media from folders you choose and stores its catalog, playback state, and cached artwork on your Mac. It does not need a media server.</p><p>When you use online metadata, subtitle, or download integrations, Frame connects to the services you configure. Those services have their own privacy practices.</p><a class="text-link" href="privacy.html">Read the privacy details <span>→</span></a><a class="text-link" href="third-party.html">Third-party notices and media licenses <span>→</span></a></div>
+    </section>
+
+    <section class="download-panel">
+      <div class="download-mark"><img src="assets/frame-mark.webp" alt="Frame app icon"></div>
+      <div><div class="section-kicker">MADE FOR MAC</div><h2>Make room for<br><span>movie night.</span></h2><p>Bring your collection into Frame and press play on something good.</p><div class="requirements"><span>macOS 14 or later</span><i></i><span>Apple silicon</span></div></div>
+      <div class="download-buttons"><a class="button primary" href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/latest/download/Frame.zip">Download Frame <span>↓</span></a><a class="text-link" href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases">All releases and notes <span>↗</span></a><small>Free download · Proprietary app</small></div>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#top"><img src="assets/frame-mark.webp" alt=""><span>frame</span></a><span>© 2026 Interlaced Pixel · Frame</span><div><a href="privacy.html">Privacy</a><a href="third-party.html">Third-party notices</a><a href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases">Releases</a><a href="https://www.themoviedb.org">TMDB</a></div></footer>
+</body>
+</html>

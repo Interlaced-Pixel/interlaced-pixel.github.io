@@ -10,6 +10,7 @@ const publicPages = [
 	'/projects/',
 	'/projects/pixelnow-mac/',
 	'/projects/macpicard/',
+	'/frame/',
 	'/blog/',
 	'/contact/',
 	'/privacy/',
