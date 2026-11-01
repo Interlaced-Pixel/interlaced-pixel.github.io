@@ -42,11 +42,11 @@ export const projects: Project[] = [
 		logo: '/frame/assets/frame-mark.webp',
 		screenshots: [
 			{
-				src: '/frame/assets/series-library.webp',
-				alt: 'Frame series library with poster artwork and playback controls',
-				caption: 'Local series library — artwork, episodes, and playback in one view',
-				width: 2048,
-				height: 1218,
+				src: '/frame/assets/home-overview.webp',
+				alt: 'Frame Home with continuing movies and episodes, recent additions, and local library status',
+				caption: 'Frame Home — continuing movies and series alongside recent additions',
+				width: 3104,
+				height: 1846,
 			},
 		],
 	},
