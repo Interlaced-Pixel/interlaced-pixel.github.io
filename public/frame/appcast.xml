@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
   <channel>
-    <item><title>Version 1.0.6</title><pubDate>Sun, 01 Nov 2026 06:41:46 +0000</pubDate><sparkle:version>1.0.6</sparkle:version><sparkle:shortVersionString>1.0.6</sparkle:shortVersionString><sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion><sparkle:releaseNotesLink>https://interlacedpixel.com/frame/release-notes/1.0.6.html</sparkle:releaseNotesLink><enclosure url="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/download/v1.0.6/Frame.zip" length="31547657" type="application/octet-stream" sparkle:edSignature="3Vg9DdjEKre4rlKN+LXfawfPlzreDouePiJyqpZeAQA7fOultHul/3Inj3O5pT2fFdjWnp8FCPatz/Tz+c+PBQ==" /></item><title>Frame Updates</title>
+    <item><title>Version 1.0.7</title><pubDate>Sun, 01 Nov 2026 23:22:21 +0000</pubDate><sparkle:version>1.0.7</sparkle:version><sparkle:shortVersionString>1.0.7</sparkle:shortVersionString><sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion><sparkle:releaseNotesLink>https://interlacedpixel.com/frame/release-notes/1.0.7.html</sparkle:releaseNotesLink><enclosure url="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/download/v1.0.7/Frame.zip" length="32111591" type="application/octet-stream" sparkle:edSignature="hHxKPjRcSJ9I/1td9R9V15T7mPtFYz3aNI909+lxBRa5xBJ12qThdvad3/sheO8pR1zhBI96wvV5qfUG7eJJDg==" /></item><title>Frame Updates</title>
     <link>https://interlacedpixel.com/frame/appcast.xml</link>
     <description>Software updates for Frame for macOS.</description>
     <language>en</language>
