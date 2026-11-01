@@ -7,7 +7,7 @@
   <meta name="description" content="Frame is a private, local-first movie and TV library manager with a full-featured macOS video player.">
   <meta property="og:title" content="Frame — your library, ready to play">
   <meta property="og:description" content="A native Mac media library manager and player. Your files stay yours.">
-  <meta property="og:image" content="assets/series-library.webp">
+  <meta property="og:image" content="assets/home-overview.webp">
   <title>Frame — your library, ready to play</title>
   <link rel="icon" href="assets/frame-mark.webp" type="image/webp">
   <link rel="stylesheet" href="styles.css">
@@ -29,12 +29,12 @@
           <a class="button primary" href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/latest/download/Frame.zip">Download for Mac <span>↓</span></a>
           <a class="button secondary" href="https://github.com/Interlaced-Pixel/Frame-Downloads/releases/latest">Release notes <span>↗</span></a>
         </div>
-        <div class="requirements"><span>macOS 14+</span><i></i><span>Apple silicon</span><i></i><span>Version <b id="version">1.0.2</b></span></div>
+        <div class="requirements"><span>macOS 14+</span><i></i><span>Apple silicon</span><i></i><span>Version <b id="version">1.0.6</b></span></div>
         <p class="install-note">First launch: Control-click Frame and choose Open. Frame is not notarized.</p>
       </div>
-      <a class="hero-shot" href="#screenshots" aria-label="See the Frame series library screenshot">
-        <div class="shot-window"><div class="shot-lights"><b></b><b></b><b></b></div><div class="shot-title">FRAME <span>LIBRARY</span></div><img src="assets/series-library.webp" alt="Frame’s series library with poster artwork and collection controls"></div>
-        <div class="shot-caption"><span class="caption-icon">▦</span><span><b>One home for every series</b><small>Artwork, episodes, and playback in one view</small></span><span class="caption-arrow">↗</span></div>
+      <a class="hero-shot" href="#screenshots" aria-label="See the Frame home screen">
+        <div class="shot-window"><div class="shot-lights"><b></b><b></b><b></b></div><div class="shot-title">FRAME <span>LIBRARY</span></div><img src="assets/home-overview.webp" alt="Frame home with continue watching, recent episodes, movies, and the resource footer"></div>
+        <div class="shot-caption"><span class="caption-icon">▦</span><span><b>Your whole library, at a glance</b><small>Pick up watching and see resource use at a glance</small></span><span class="caption-arrow">↗</span></div>
       </a>
       <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
     </section>
@@ -53,14 +53,14 @@
         <article class="feature-card">
           <div class="feature-head"><span class="feature-symbol cyan">▤</span><span class="feature-label">LIBRARY</span></div>
           <h3>Made for the<br>way you collect.</h3>
-          <p>Scan local folders, match titles, choose artwork, manage episodes, and rename media to a clean, consistent format. Browse your way with posters or sortable lists.</p>
+          <p>Scan local folders, match titles, choose artwork, manage episodes, and rename media to a clean, consistent format. Browse with posters or sortable lists, with library and resource stats close at hand.</p>
           <div class="feature-bottom"><span>Movies</span><span>Series</span><span>Episode manager</span></div>
         </article>
         <article class="feature-card">
-          <div class="feature-head"><span class="feature-symbol violet">⌕</span><span class="feature-label">SEARCH & IMPORT</span></div>
+          <div class="feature-head"><span class="feature-symbol violet">⌕</span><span class="feature-label">SEARCH, DISCOVER & IMPORT</span></div>
           <h3>From search<br>to your shelf.</h3>
-          <p>Search your configured indexers, filter releases, send a selection to Transmission, and follow progress as Frame imports completed files into the matching library.</p>
-          <div class="feature-bottom"><span>Release filters</span><span>Manual import</span></div>
+          <p>Explore personalized Discover picks with full descriptions and useful actions. Search configured indexers, filter releases, and follow downloads as Frame imports them into your library.</p>
+          <div class="feature-bottom"><span>Discover details</span><span>Release filters</span></div>
         </article>
         <article class="feature-card">
           <div class="feature-head"><span class="feature-symbol amber">◷</span><span class="feature-label">STAY IN SYNC</span></div>
@@ -74,9 +74,12 @@
     <section class="screenshots" id="screenshots">
       <div class="section-heading"><div><div class="section-kicker">A CLOSER LOOK</div><h2>Your media, <span>in its element.</span></h2></div><p>Purpose-built screens for the parts of your library you use every day.</p></div>
       <div class="gallery">
-        <figure class="gallery-wide"><img src="assets/movie-library.webp" alt="Frame movie library showing real poster artwork"><figcaption><b>Movie night starts here</b><span>Poster browsing, playback progress, and a focused collection view</span></figcaption></figure>
-        <figure><img src="assets/calendar.webp" alt="Frame airing calendar with episode artwork"><figcaption><b>Your series calendar</b><span>Recently aired and upcoming episodes</span></figcaption></figure>
-        <figure><img src="assets/search.webp" alt="Frame search page for configured indexers"><figcaption><b>Search with context</b><span>Filter releases across configured indexers</span></figcaption></figure>
+        <figure><img src="assets/home-overview.webp" alt="Frame home with continue watching, recent episodes, movies, and the resource footer" loading="lazy"><figcaption><b>Home, ready to watch</b><span>Continue watching, recent additions, and library and resource stats</span></figcaption></figure>
+        <figure><img src="assets/series-overview.webp" alt="Frame series collection with episode counts, posters, and library controls" loading="lazy"><figcaption><b>Every series in one place</b><span>Browse your collection and find the next episode</span></figcaption></figure>
+        <figure><img src="assets/discover.webp" alt="Frame Discover with personalized recommendations, filters, and title actions" loading="lazy"><figcaption><b>Discover what to watch</b><span>Personalized picks, useful details, and direct actions</span></figcaption></figure>
+        <figure><img src="assets/movie-library.webp" alt="Frame movie library showing real poster artwork" loading="lazy"><figcaption><b>Movie night starts here</b><span>Poster browsing, playback progress, and a focused collection view</span></figcaption></figure>
+        <figure><img src="assets/calendar.webp" alt="Frame airing calendar with episode artwork" loading="lazy"><figcaption><b>Your series calendar</b><span>Recently aired and upcoming episodes</span></figcaption></figure>
+        <figure><img src="assets/search.webp" alt="Frame search page for configured indexers" loading="lazy"><figcaption><b>Search with context</b><span>Filter releases across configured indexers</span></figcaption></figure>
       </div>
     </section>
 
