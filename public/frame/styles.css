@@ -15,3 +15,6 @@ footer{padding:24px clamp(22px,6.2vw,96px) 29px;border-top:1px solid var(--line)
 .player-hero{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr)}.player-shot figcaption{display:grid;grid-template-columns:1fr;justify-content:start;gap:3px}.player-shot figcaption b{white-space:normal}
 @media(max-width:940px){.player-hero{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.player-hero{grid-template-columns:1fr}}
+
+.indieappcircle-badge{display:inline-flex;flex:0 0 216px;width:216px;height:54px;align-items:center;justify-content:center}.indieappcircle-badge img{width:216px;height:54px}
+@media(max-width:650px){.indieappcircle-badge{margin-inline:auto}}
